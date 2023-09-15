@@ -15,7 +15,7 @@
   \**********************/
 /***/ (function() {
 
-eval("const root = document.getElementById(\"canvas\");\nconsole.log(root);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaW5kZXguanMiLCJuYW1lcyI6WyJyb290IiwiZG9jdW1lbnQiLCJnZXRFbGVtZW50QnlJZCIsImNvbnNvbGUiLCJsb2ciXSwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsid2VicGFjazovL2pzLXByb2plY3QtcG9rZXItYmxhY2tqYWNrLy4vc3JjL2luZGV4LmpzP2I2MzUiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3Qgcm9vdCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiY2FudmFzXCIpXG5jb25zb2xlLmxvZyhyb290KTsiXSwibWFwcGluZ3MiOiJBQUFBLE1BQU1BLElBQUksR0FBR0MsUUFBUSxDQUFDQyxjQUFjLENBQUMsUUFBUSxDQUFDO0FBQzlDQyxPQUFPLENBQUNDLEdBQUcsQ0FBQ0osSUFBSSxDQUFDIn0=\n//# sourceURL=webpack-internal:///./src/index.js\n");
+eval("const canvas = document.getElementById(\"canvas\");\nconsole.log(canvas);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaW5kZXguanMiLCJuYW1lcyI6WyJjYW52YXMiLCJkb2N1bWVudCIsImdldEVsZW1lbnRCeUlkIiwiY29uc29sZSIsImxvZyJdLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vanMtcHJvamVjdC1wb2tlci1ibGFja2phY2svLi9zcmMvaW5kZXguanM/YjYzNSJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBjYW52YXMgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImNhbnZhc1wiKVxuY29uc29sZS5sb2coY2FudmFzKTsiXSwibWFwcGluZ3MiOiJBQUFBLE1BQU1BLE1BQU0sR0FBR0MsUUFBUSxDQUFDQyxjQUFjLENBQUMsUUFBUSxDQUFDO0FBQ2hEQyxPQUFPLENBQUNDLEdBQUcsQ0FBQ0osTUFBTSxDQUFDIn0=\n//# sourceURL=webpack-internal:///./src/index.js\n");
 
 /***/ }),
 

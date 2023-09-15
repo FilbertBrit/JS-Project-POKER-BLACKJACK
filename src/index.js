@@ -1,2 +1,2 @@
-const root = document.getElementById("canvas")
-console.log(root);
+const canvas = document.getElementById("canvas")
+console.log(canvas);
