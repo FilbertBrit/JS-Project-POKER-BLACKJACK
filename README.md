@@ -67,7 +67,7 @@ This project will be implemented with the following technologies:
 
 ## Implementation Timeline
 
-- Friday Afternoon & Weekend: Setup the project. Getting comfortable with canvas. Create classes for Board and Card. 
+- Friday Afternoon & Weekend: Setup the project. Getting comfortable with canvas. Create classes for Board, player, and Card. 
 - Monday: Write up game logic. 
 - Tuesday: Rendering cards onto canvas. Work on user controls
 - Wednesday: Work on styling. 
