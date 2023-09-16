@@ -1,2 +1,21 @@
 // @import url("./styles.css");
 @import url("./styles/home-page.scss");
+
+canvas {
+    border: 5px solid pink;
+    display: flex;
+}
+
+* {
+    background-color: burlywood;
+}
+
+.header-container {
+
+    #title{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        color: beige;
+    }
+}
