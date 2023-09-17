@@ -14,9 +14,16 @@ canvas {
   background-color: burlywood;
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-around;
+}
+.header-container #personal-links {
+  flex-direction: row;
+}
 .header-container #title {
-  align-items: center;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: beige;
 }
