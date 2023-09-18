@@ -14,7 +14,8 @@ class multiChoice {
 
         this.deck = deckCreation(); // deck used for multi-choice game
         this.players = []; //array that will hold all hands of the current game
-        this.dealer = new PlayerHand(this.deck);
+        this.hands(5) // adds 5 players to the game, players array
+        this.dealer = new PlayerHand(this.deck); // creating dealer hand
         this.dealer.addToHand.call(this.dealer, 3) // dealer always starts off with 3 cards
     }
 
@@ -38,42 +39,13 @@ class multiChoice {
         let hand;
         let currentHand;
 
-        if(round < 3){ //first round only check players cards not dealers
-            // debugger
-            hand = this.players[0].hand;
-            // for(let i = 1; i < this.players.length; i++){
-            for(let i = 1; i < 2; i++){
-                currentHand = this.players[i].hand;
-                //booleans checking if any of the two have a pair
-                let handPair = hand[0].value === hand[1].value;
-                let currentHandPair = currentHand[0].value === currentHand[1].value; 
+        if(round < 3){ //working!!!
 
-                if(handPair || currentHandPair){ // at least one has a pair
-                    if(handPair && currentHandPair){ // if both, checking for highest card
-                        if(hand[0].value === currentHand[0].value){
-                            tie = true;
-                        }else{
-                            hand = (UTIL.values.indexOf(hand[0].value) > UTIL.values.indexOf(currentHand[0].value) ? hand : currentHand)
-                        }
-                    }else{
-                        hand = (handPair ? hand : currentHand)
-                    }
-
-
-                }else{ // no pair, just checking for highest card
-                    let result = this.compareHandValues(hand, currentHand);
-                    if (result === 'tie'){
-                        tie = true;
-                    }else if (result === currentHand){
-                        hand = result;
-                    }
-                }
-            }
-            if(tie) console.log("tie")
-            return hand;
-            // end of game logic for round 1-2
+            return this.roundOneToTwo.call(this);
 
         } else if(this.dealer.hand.length < 5){ //look for high card, pair, two pair, 3-of-a-kind, 4-of-a-kind
+
+            console.log('IN ROUNDS 3-4')
             let handIdx = [0];
             hand = this.players[0].hand.concat(this.dealer.hand)
             console.log('hand');
@@ -89,12 +61,15 @@ class multiChoice {
                 let handCount = {};
                 let currHandCount = {};
                 for(let i = 0; i < hand.length; i++){
-                    (handCount[hand[i].value]) ? handCount[hand[i].value].push(i) : handCount[hand[i].value] = [i];
-                    (currHandCount[currentHand[i].value]) ? currHandCount[currentHand[i].value].push(i) : currHandCount[currentHand[i].value] = [i];
+                    (handCount[hand[i].value]) ? handCount[hand[i].value].push(hand[i].value) : handCount[hand[i].value] = [hand[i].value];
+                    (currHandCount[currentHand[i].value]) ? currHandCount[currentHand[i].value].push(currentHand[i].value) : currHandCount[currentHand[i].value] = [currentHand[i].value];
                 }
                 console.log('hashes');
                 console.log(handCount);
                 console.log(currHandCount);
+
+                //^^ WORKING
+
                 // console.log(Object.values(handCount)[0])
                 // console.log(Object.values(handCount).find((arr) => arr.length === 2))
 
@@ -117,128 +92,101 @@ class multiChoice {
                 //         } 
                 //     }
                 // }else if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){ // at least one player has 3 of a kind
-                //     let handThreeOfKind = Object.values(handCount).find((ele) => ele.length === 3);
-                //     let currHandThreeOfKind = Object.values(currHandCount).find((ele) => ele.length === 3);
+                if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){ // at least one player has 3 of a kind
 
-                //     if(handThreeOfKind && currHandThreeOfKind){
-                //         if(handThreeOfKind[0] === currHandThreeOfKind[0]){
-                //             tie = true;
-                //             handIdx.push(i);
-                //         }else if (UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
-                //             hand = currentHand;
-                //             handIdx[0] = i;
-                //         }
-                //     }else{
-                //         if (currHandThreeOfKind){
-                //             hand = currentHand;
-                //             handIdx[0] = i;
-                //         }
-                //     }
+                    result = this.compareThreeOfKind.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
+
+                    hand = result[0]; // return hand
 
                 // }else if (Object.values(handCount).find((arr) => arr.length > 2) || Object.values(currHandCount).find((arr) => arr.length > 2)){
-                if (Object.values(handCount).find((arr) => arr.length === 2) || Object.values(currHandCount).find((arr) => arr.length === 2)){
-                    console.log('here')
-                    let handPair = Object.values(handCount).find((arr) => arr.length === 2);
-                    let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2);
-                    console.log(handPair)
-                    console.log(currHandPair)
-
-                    if(handPair && currHandPair){ // both have a pair
-                        console.log('hi')
-                        if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handPair[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandPair[0])){ //atleast one has two pairs
-                            //check who has the second pair if not both
-                            let secondHandPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handPair[0]);
-                            let secondCurrHandPair = Object.values(currHandCount).find((arr) => arr.length > 2);
-
-                            if(secondHandPair && secondCurrHandPair){
-                                // check for highest value
-                                // handMaxPair = UTIL.values.indexOf(handPair[0]) > UTIL.values.indexOf() ? : ;
-
-                            }else{
-                                if(secondCurrHandPair){
-                                    hand = currentHand;
-                                    tie = false;
-                                    handIdx = i;
-                                }
-                            }
-    
-                        }else{ // look for the pair with the highest value
-                            if(handPair[0] === currHandPair[0]){
-                                tie = true;
-                                handIdx.push(i);
-                            }else{
-                                if( UTIL.values.indexOf(currHandPair[0]) > UTIL.values.indexOf(handPair[0]) ){
-                                    tie = false;
-                                    hand = currentHand;
-                                    handIdx[0] = i;
-                                }
-                            }
-    
-                        }
-                    }else{ // check if currHand is the one with the pair
-                        // console('one pair')
-                        // if (currHandPair){
-                        //     tie = false;
-                        //     hand = currentHand;
-                        //     handIdx[0] = i;
-                        // }
-                    }
-
-                    console.log(hand);
-
-                }else{ // last look for highest card, of their 2 cards, WORKING!!!
-                    // console.log('testing...')
+                }else if (Object.values(handCount).find((arr) => arr.length === 2) || Object.values(currHandCount).find((arr) => arr.length === 2)){
                     
-                    //can make this a helperfunction
-                    let handRank = hand.slice(0,2).map(card => UTIL.values.indexOf(card.value));
-                    let handMax = Math.max(...handRank);
-                    // console.log(handRank)
-                    // console.log(handMax)
-                    let currHandRank = currentHand.slice(0,2).map(card => UTIL.values.indexOf(card.value));
-                    let currHandMax = Math.max(...currHandRank);
-                    // console.log(currHandRank)
-                    // console.log(currHandMax)
-                    if(handMax === currHandMax){
+                    let result = this.comparePairs.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
+                    hand = result[0]; // return hand
+                    
+                }else{ // last look for highest card, of their 2 cards, WORKING!!!
+                    let result = this.compareHandValues(hand, currentHand);
+
+                    if(result == 'tie'){
                         tie = true;
                         handIdx.push(i);
-                    }else if(handMax < currHandMax){
+                    }else if (result === currentHand){
                         tie = false;
                         hand = currentHand;
-                        handIdx[0] = i;
+                        handIdx = [i];
                     }
-
-                    // console.log('no pairs, chechking for highest card')
-                    // console.log(hand);
-                    // console.log(tie);
-                    
                 }
-                // console.log(Object.values(handCount))
-                // console.log(handCount)
-                // console.log(currHandCount)
-                // console.log(hand);
-                // console.log(hand.map(card => UTIL.values.indexOf(card.value)))
-                // console.log(Math.max(...(hand.map(card => UTIL.values.indexOf(card.value)))))
             }
-            // return this.players[handIdx].hand;
-        }else{ //case: dealer has all 5 cards, now check for flush, straight, etc.
-            let dealerHand = this.dealer.hand;
-            // console.log(dealerHand)
-            hand = this.players[0].hand.concat(dealerHand);
-            // console.log(this.players[0].hand);
-
-            for(let i = 1; i < this.players.length; i++){
-                currentHand = this.players[i].hand.concat(dealerHand);
-                // need logic to check what kind of hand they have;
-            }
-
-            if(tie) console.log(tie)
             return hand;
-        } //end of all other rounds logic
+        }else{ //NEED TO WOKR ON THIS!! case: dealer has all 5 cards, now check for flush, straight, etc.
+            
+            let result = this.lastRounds.call(this);
+            return result[0];
+            
+        } 
+    }//END OF BESTHAND FUNCTION
+
+    roundOneToTwo(){ //WORKING!!
+        let tie = false;
+        let hand;
+        let currentHand;
+
+        hand = this.players[0].hand;
+        // for(let i = 1; i < this.players.length; i++){ 
+        for(let i = 1; i < 2; i++){ //debugging purpose 
+            currentHand = this.players[i].hand;
+            //booleans checking if any of the two have a pair
+            let handPair = hand[0].value === hand[1].value;
+            let currentHandPair = currentHand[0].value === currentHand[1].value; 
+
+            if(handPair || currentHandPair){ // at least one has a pair
+                if(handPair && currentHandPair){ // if both, checking for highest card
+                    if(hand[0].value === currentHand[0].value){
+                        tie = true;
+                    }else{
+                        hand = (UTIL.values.indexOf(hand[0].value) > UTIL.values.indexOf(currentHand[0].value) ? hand : currentHand)
+                    }
+                }else{
+                    hand = (handPair ? hand : currentHand)
+                }
+
+
+            }else{ // no pair, just checking for highest card
+                let result = this.compareHandValues(hand, currentHand);
+                if (result === 'tie'){
+                    tie = true;
+                }else if (result === currentHand){
+                    hand = result;
+                }
+            }
+        }
+        // if(tie) console.log("tie")
+        console.log('in roundOneToTwo')
+        console.log(hand)
+        return hand;
+        // end of game logic for round 1-2
     }
 
-    compareHandValues(hand1, hand2){
+    lastRounds(){ // check for all possible hands then best, NEED TO WORK ON THIS!
+        let dealerHand = this.dealer.hand;
+        // console.log(dealerHand)
+        let hand = this.players[0].hand.concat(dealerHand);
+        // console.log(this.players[0].hand);
+
+        for(let i = 1; i < this.players.length; i++){
+            let currentHand = this.players[i].hand.concat(dealerHand);
+            // need logic to check what kind of hand they have;
+        }
+
+        // if(tie) console.log(tie)
+        return hand;
+    }
+
+    compareHandValues(hand1, hand2){ // WORKING!!
         let hand1Max = (UTIL.values.indexOf(hand1[0].value) > UTIL.values.indexOf(hand1[1].value)) ? UTIL.values.indexOf(hand1[0].value) : UTIL.values.indexOf(hand1[1].value);
         let hand2Max = (UTIL.values.indexOf(hand2[0].value) > UTIL.values.indexOf(hand2[1].value)) ? UTIL.values.indexOf(hand2[0].value) : UTIL.values.indexOf(hand2[1].value);
+        // console.log(hand1Max)
+        // console.log(hand2Max)
 
         let result;
         if (hand1Max === hand2Max){
@@ -248,18 +196,117 @@ class multiChoice {
         }else{
             result = hand2
         }
+        console.log('In compareHandValues')
+        console.log(result)
         return result
     }
 
+    compareThreeOfKind(hand, handCount, currentHand, currHandCount, handIdx, tie){ //done, working?
+        console.log('in compareThreeOfKind');
+
+        let handThreeOfKind = Object.values(handCount).find((arr) => arr.length === 3);
+        let currHandThreeOfKind = Object.values(currHandCount).find((arr) => arr.length === 3);
+
+        if(handThreeOfKind && currHandThreeOfKind){
+            if(handThreeOfKind[0] === currHandThreeOfKind[0]){
+                //check if anyone has a pair as well
+                if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0])){
+
+                }
+                tie = true;
+                // handIdx.push(i);
+            }else if (UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
+                hand = currentHand;
+                // handIdx[0] = i;
+            }
+        }else{
+            if (currHandThreeOfKind){
+                hand = currentHand;
+                // handIdx[0] = i;
+            }
+        }
+
+        return [hand, handIdx, tie]
 }
-class PlayerHand{
+
+    compareFourOfKind(){
+        console.log('in compareFourOfKind')
+    }
+
+    comparePairs(hand, handCount, currentHand, currHandCount, handIdx, tie){ // working!!
+        let handPair = Object.values(handCount).find((arr) => arr.length === 2);
+        let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2);
+        console.log(handPair)
+        console.log(currHandPair)
+        
+        //check if pair is amoung only dealer's hand, still need to work on this
+        if(handPair && currHandPair){ // both have a pair
+            // console.log('hi')
+            
+            if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handPair[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandPair[0])){ //atleast one has two pairs, WOKRING!!!
+                //check who has the second pair if not both
+                let secondHandPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handPair[0]);
+                let secondCurrHandPair = Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandPair[0]);
+                // console.log(secondHandPair);
+                // console.log(secondCurrHandPair);
+
+                if(secondHandPair && secondCurrHandPair){
+                    if(secondHandPair[0] === secondCurrHandPair[0]){
+                        tie = true;
+                        // handIdx.push(i);
+                    }else{
+                        if (UTIL.values.indexOf(secondHandPair[0]) < UTIL.values.indexOf(secondCurrHandPair[0])) {
+                            hand = currentHand;
+                            tie = false;
+                            // handCount = [i];
+                        }
+                    }
+
+                }else{// WORKING!!
+                    if(secondCurrHandPair){
+                        hand = currentHand;
+                        tie = false;
+                        // handIdx = [i];
+                    }
+                }
+
+            }else{ // look for the pair with the highest value, WOKRING!!!
+                if(handPair[0] === currHandPair[0]){
+                    tie = true;
+                    // handIdx.push(i);
+                    // console.log(tie);
+                }else{
+                    if( UTIL.values.indexOf(currHandPair[0]) > UTIL.values.indexOf(handPair[0]) ){
+                        tie = false;
+                        hand = currentHand;
+                        // handIdx = [i];
+                    }
+                }
+
+            }
+        }else{ // check if currHand is the one with the pair, WORKING!!!!
+            console.log('one pair')
+            if (currHandPair){
+                tie = false;
+                hand = currentHand;
+                // handIdx = [i];
+            }
+        }
+
+        console.log('in ComparePairs')
+        console.log(hand);
+        return [hand, handIdx, tie];
+    }
+
+}
+class PlayerHand{ // fine, dont touch
     constructor(deck){
         this.deck = deck; // reference to the game's card deck
         this.hand = []; // array that will hold this player's cards
     }
 
 
-    addToHand(num){
+    addToHand(num){ // maybe add a random way either pop/shift
         //take a card from deck and add to hand, remove card from deck
         while(num > 0){
             this.hand.push(this.deck.shift());
@@ -270,11 +317,13 @@ class PlayerHand{
 }
 
 let game = new multiChoice();
-game.hands.call(game, 5);
+// game.hands.call(game, 5);
 console.log(game);
 game.printGame.call(game, 5);
-console.log("Winning card")
-console.log(game.bestHand.call(game, 2));
+console.log("dealer hand")
+game.dealer.addToHand.call(game.dealer, 1)
+console.log(game.dealer.hand)
+console.log(game.bestHand.call(game, 3));
 
 ///build a database with possible questions to query for to use during each round
 
