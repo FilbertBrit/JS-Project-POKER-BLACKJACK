@@ -34,6 +34,7 @@ class multiChoice {
         }
     }
 
+    // need to work on 4-of-kind occurance
     bestHand(round){
         let tie = false;
         let hand;
@@ -45,17 +46,17 @@ class multiChoice {
 
         } else if(this.dealer.hand.length < 5){ //look for high card, pair, two pair, 3-of-a-kind, 4-of-a-kind
 
-            console.log('IN ROUNDS 3-4')
+            // console.log('IN ROUNDS 3-4')
             let handIdx = [0];
             hand = this.players[0].hand.concat(this.dealer.hand)
-            console.log('hand');
-            console.log(hand)
+            // console.log('hand');
+            // console.log(hand)
 
-            // for(let i = 1; i < this.players.length; i++){
-            for(let i = 1; i < 2; i++){ //debugging purposes
+            for(let i = 1; i < this.players.length; i++){
+            // for(let i = 1; i < 2; i++){ //debugging purposes
                 currentHand = this.players[i].hand.concat(this.dealer.hand)
-                console.log('current hand')
-                console.log(currentHand);
+                // console.log('current hand')
+                // console.log(currentHand);
 
                 //hashes to count pairs*
                 let handCount = {};
@@ -64,41 +65,24 @@ class multiChoice {
                     (handCount[hand[i].value]) ? handCount[hand[i].value].push(hand[i].value) : handCount[hand[i].value] = [hand[i].value];
                     (currHandCount[currentHand[i].value]) ? currHandCount[currentHand[i].value].push(currentHand[i].value) : currHandCount[currentHand[i].value] = [currentHand[i].value];
                 }
-                console.log('hashes');
-                console.log(handCount);
-                console.log(currHandCount);
+                // console.log('hashes');
+                // console.log(handCount);
+                // console.log(currHandCount);
 
                 //^^ WORKING
 
-                // console.log(Object.values(handCount)[0])
-                // console.log(Object.values(handCount).find((arr) => arr.length === 2))
+                if (Object.values(handCount).find((ele) => ele.length === 4) || Object.values(currHandCount).find((ele) => ele.length === 4)){ // at least one player has four of a kind
 
-                // if (Object.values(handCount).find((ele) => ele.length === 4) || Object.values(currHandCount).find((ele) => ele.length === 4)){ // at least one player has four of a kind
-                //     let handFourOfKind = Object.values(handCount).find((ele) => ele.length === 4);
-                //     let currHandFourOfKind = Object.values(currHandCount).find((ele) => ele.length === 4);
+                    let result = this.compareFourOfKind.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
 
-                //     if(handFourOfKind && currHandFourOfKind){ //case: both players have 4 of a kind
-                //         if(handFourOfKind[0] === currHandFourOfKind[0]){
-                //             tie = true;
-                //             handIdx.push(i);
-                //         }else if (UTIL.values.indexOf(handFourOfKind[0]) < UTIL.values.indexOf(currHandFourOfKind[0])){
-                //             hand = currentHand;
-                //             handIdx[0] = i;
-                //         }
-                //     }else{ // case: only one player has four of a kind
-                //         if (currHandFourOfKind){
-                //             hand = currentHand;
-                //             handIdx[0] = i;
-                //         } 
-                //     }
-                // }else if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){ // at least one player has 3 of a kind
-                if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){ // at least one player has 3 of a kind
+                    hand = result[0]; // return hand
+                    
+                }else if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){ // at least one player has 3 of a kind
 
-                    result = this.compareThreeOfKind.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
+                    let result = this.compareThreeOfKind.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
 
                     hand = result[0]; // return hand
 
-                // }else if (Object.values(handCount).find((arr) => arr.length > 2) || Object.values(currHandCount).find((arr) => arr.length > 2)){
                 }else if (Object.values(handCount).find((arr) => arr.length === 2) || Object.values(currHandCount).find((arr) => arr.length === 2)){
                     
                     let result = this.comparePairs.call(this, hand, handCount, currentHand, currHandCount, handIdx, tie);
@@ -117,7 +101,7 @@ class multiChoice {
                     }
                 }
             }
-            return hand;
+            return hand.slice(0,2);
         }else{ //NEED TO WOKR ON THIS!! case: dealer has all 5 cards, now check for flush, straight, etc.
             
             let result = this.lastRounds.call(this);
@@ -133,8 +117,8 @@ class multiChoice {
         let currentHand;
 
         hand = this.players[0].hand;
-        // for(let i = 1; i < this.players.length; i++){ 
-        for(let i = 1; i < 2; i++){ //debugging purpose 
+        for(let i = 1; i < this.players.length; i++){ 
+        // for(let i = 1; i < 2; i++){ //debugging purpose 
             currentHand = this.players[i].hand;
             //booleans checking if any of the two have a pair
             let handPair = hand[0].value === hand[1].value;
@@ -162,12 +146,13 @@ class multiChoice {
             }
         }
         // if(tie) console.log("tie")
-        console.log('in roundOneToTwo')
-        console.log(hand)
+        // console.log('in roundOneToTwo')
+        // console.log(hand)
         return hand;
         // end of game logic for round 1-2
     }
 
+    //need to work on this
     lastRounds(){ // check for all possible hands then best, NEED TO WORK ON THIS!
         let dealerHand = this.dealer.hand;
         // console.log(dealerHand)
@@ -198,13 +183,14 @@ class multiChoice {
         }else{
             result = hand2
         }
-        console.log('In compareHandValues')
-        console.log(result)
+        // console.log('In compareHandValues')
+        // console.log(result)
         return result
     }
 
+    //done, working!!
     compareThreeOfKind(hand, handCount, currentHand, currHandCount, handIdx, tie){ //done, working?
-        console.log('in compareThreeOfKind');
+        // console.log('in compareThreeOfKind');
 
         let handThreeOfKind = Object.values(handCount).find((arr) => arr.length === 3);
         let currHandThreeOfKind = Object.values(currHandCount).find((arr) => arr.length === 3);
@@ -247,61 +233,27 @@ class multiChoice {
                         //save 3-of-kind cards, then check for greatest pair
                         if(UTIL.values.indexOf(handPair[0]) === UTIL.values.indexOf(currHandPair[0])){
                             tie = true;
-                        }else{
-                            if(currHandPair){
-
-                            }
+                        }else if(UTIL.values.indexOf(handPair[0]) < UTIL.values.indexOf(currHandPair[0])){
+                            hand = currentHand;
+                            tie = false;
                         }
                     }else if(UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
                         hand = currentHand;
                         tie = false;
                     }
-                    if(handPair[0] === currHandPair[0]){
-                        tie = true;
-                    }else{
-                        if(currHandPair){
-                            hand = currentHand
-                            tie = false;
-                        }
-                    }
-                }else{
+                }else{ //done
                     if(currHandPair){
                         hand = currHandCount;
                         tie = false;
                     }
                 }
             }else if(handThreeOfKind[0] === currHandThreeOfKind[0]){
-
-                //check if anyone has a pair as well, or another 3-of-kind
-                if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0])){
-
-                    let handPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]);
-                    let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0]);
-
-                    if(handPair && currHandPair){
-                        if(handPair[0] === currHandPair[0]){
-                            tie = true;
-                        }else{
-                            if(currHandPair){
-                                hand = currentHand
-                                tie = false;
-                            }
-                        }
-                    }else{
-                        if(currHandPair){
-                            hand = currHandCount;
-                            tie = false;
-                        }
-                    }
-                }else{
-                    tie = true;
-                    // handIdx.push(i);
-                }
+                tie = true;
             }else if (UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
                 hand = currentHand;
                 // handIdx[0] = i;
             }
-        }else{
+        }else{//done
             if (currHandThreeOfKind){
                 hand = currentHand;
                 // handIdx[0] = i;
@@ -313,7 +265,7 @@ class multiChoice {
 
     //still need to work on this
     compareFourOfKind(hand, handCount, currentHand, currHandCount, handIdx, tie){
-        console.log('in compareFourOfKind')
+        // console.log('in compareFourOfKind')
         let handFourOfKind = Object.values(handCount).find((arr) => arr.length === 4);
         let currHandFourOfKind = Object.values(currHandCount).find((arr) => arr.length === 4);
 
@@ -364,8 +316,8 @@ class multiChoice {
     comparePairs(hand, handCount, currentHand, currHandCount, handIdx, tie){ // working!!
         let handPair = Object.values(handCount).find((arr) => arr.length === 2);
         let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2);
-        console.log(handPair)
-        console.log(currHandPair)
+        // console.log(handPair)
+        // console.log(currHandPair)
         
         //check if pair is amoung only dealer's hand, still need to work on this
         if(handPair && currHandPair){ // both have a pair
@@ -413,7 +365,7 @@ class multiChoice {
 
             }
         }else{ // check if currHand is the one with the pair, WORKING!!!!
-            console.log('one pair')
+            // console.log('one pair')
             if (currHandPair){
                 tie = false;
                 hand = currentHand;
@@ -421,8 +373,8 @@ class multiChoice {
             }
         }
 
-        console.log('in ComparePairs')
-        console.log(hand);
+        // console.log('in ComparePairs')
+        // console.log(hand);
         return [hand, handIdx, tie];
     }
 
@@ -450,9 +402,10 @@ let game = new multiChoice();
 // game.hands.call(game, 5);
 console.log(game);
 game.printGame.call(game, 5);
-console.log("dealer hand")
 game.dealer.addToHand.call(game.dealer, 1)
-console.log(game.dealer.hand)
+// console.log("dealer hand")
+// console.log(game.dealer.hand)
+console.log('Winner Hand')
 console.log(game.bestHand.call(game, 3));
 
 ///build a database with possible questions to query for to use during each round
