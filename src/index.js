@@ -126,6 +126,7 @@ class multiChoice {
         } 
     }//END OF BESTHAND FUNCTION
 
+    //done and working!!
     roundOneToTwo(){ //WORKING!!
         let tie = false;
         let hand;
@@ -182,6 +183,7 @@ class multiChoice {
         return hand;
     }
 
+    //done and working!!
     compareHandValues(hand1, hand2){ // WORKING!!
         let hand1Max = (UTIL.values.indexOf(hand1[0].value) > UTIL.values.indexOf(hand1[1].value)) ? UTIL.values.indexOf(hand1[0].value) : UTIL.values.indexOf(hand1[1].value);
         let hand2Max = (UTIL.values.indexOf(hand2[0].value) > UTIL.values.indexOf(hand2[1].value)) ? UTIL.values.indexOf(hand2[0].value) : UTIL.values.indexOf(hand2[1].value);
@@ -206,15 +208,144 @@ class multiChoice {
 
         let handThreeOfKind = Object.values(handCount).find((arr) => arr.length === 3);
         let currHandThreeOfKind = Object.values(currHandCount).find((arr) => arr.length === 3);
-
+        
         if(handThreeOfKind && currHandThreeOfKind){
-            if(handThreeOfKind[0] === currHandThreeOfKind[0]){
-                //check if anyone has a pair as well
-                if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0])){
+            //check if anyone has another 3-of-kind
+            if (Object.values(handCount).find((ele) => ele.length === 3) || Object.values(currHandCount).find((ele) => ele.length === 3)){
+            
+                let handThreeOfKindSecond = Object.values(handCount).find((arr) => arr.length === 3 && arr[0] !== handThreeOfKind[0]);
+                let currHandThreeOfKindSecond = Object.values(currHandCount).find((arr) => arr.length === 3 && arr[0] !== currHandThreeOfKind[0]);
+            
+                if(handThreeOfKindSecond && currHandThreeOfKindSecond){
+                    let handBestThreeOfKind = (UTIL.values.indexOf(handThreeOfKind[0]) > UTIL.values.indexOf(handThreeOfKindSecond[0])) ? handThreeOfKind : handThreeOfKindSecond;
+                    let currHandBestThreeOfKind = (UTIL.values.indexOf(currHandThreeOfKind[0]) > UTIL.values.indexOf(currHandThreeOfKindSecond[0])) ? currHandThreeOfKind : currHandThreeOfKindSecond;
 
+                    if((UTIL.values.indexOf(handBestThreeOfKind[0]) === TIL.values.indexOf(currHandBestThreeOfKind[0]))){
+                        tie = true;
+                    }else if(UTIL.values.indexOf(handBestThreeOfKind[0]) < TIL.values.indexOf(currHandBestThreeOfKind[0])){
+                        hand = currentHand;
+                        tie = false;
+                    }
+                }else{
+                    if(currHandCount){
+                        hand = currentHand;
+                        tie = false;
+                    }
                 }
-                tie = true;
-                // handIdx.push(i);
+
+            }else if
+            //check if anyone has a pair as well
+            (Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0])){
+
+                let handPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]);
+                let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0]);
+
+                if(handPair && currHandPair){
+                    //what if a hand has two pairs
+                    //both have 3-of-kind & pair, check if for greatest 3-of-kind
+                    if(UTIL.values.indexOf(handThreeOfKind[0]) === UTIL.values.indexOf(currHandThreeOfKind[0])){
+                        //save 3-of-kind cards, then check for greatest pair
+                        if(UTIL.values.indexOf(handPair[0]) === UTIL.values.indexOf(currHandPair[0])){
+                            tie = true;
+                        }else{
+                            if(currHandPair){
+
+                            }
+                        }
+                    }else if(UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
+                        hand = currentHand;
+                        tie = false;
+                    }
+                    if(handPair[0] === currHandPair[0]){
+                        tie = true;
+                    }else{
+                        if(currHandPair){
+                            hand = currentHand
+                            tie = false;
+                        }
+                    }
+                }else{
+                    if(currHandPair){
+                        hand = currHandCount;
+                        tie = false;
+                    }
+                }
+            }else if(handThreeOfKind[0] === currHandThreeOfKind[0]){
+
+                //check if anyone has a pair as well, or another 3-of-kind
+                if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0])){
+
+                    let handPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]);
+                    let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0]);
+
+                    if(handPair && currHandPair){
+                        if(handPair[0] === currHandPair[0]){
+                            tie = true;
+                        }else{
+                            if(currHandPair){
+                                hand = currentHand
+                                tie = false;
+                            }
+                        }
+                    }else{
+                        if(currHandPair){
+                            hand = currHandCount;
+                            tie = false;
+                        }
+                    }
+                }else{
+                    tie = true;
+                    // handIdx.push(i);
+                }
+            }else if (UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
+                hand = currentHand;
+                // handIdx[0] = i;
+            }
+        }else{
+            if (currHandThreeOfKind){
+                hand = currentHand;
+                // handIdx[0] = i;
+            }
+        }
+
+        return [hand, handIdx, tie];
+    }
+
+    //still need to work on this
+    compareFourOfKind(hand, handCount, currentHand, currHandCount, handIdx, tie){
+        console.log('in compareFourOfKind')
+        let handFourOfKind = Object.values(handCount).find((arr) => arr.length === 4);
+        let currHandFourOfKind = Object.values(currHandCount).find((arr) => arr.length === 4);
+
+        if(handFourOfKind && currHandFourOfKind){
+
+            if(handFourOfKind[0] === currHandFourOfKind[0]){
+            
+                //check if anyone has a pair as well
+                if(Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handFourOfKind[0]) || Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandFourOfKind[0])){
+
+                    let handPair = Object.values(handCount).find((arr) => arr.length === 2 && arr[0] !== handThreeOfKind[0]);
+                    let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2 && arr[0] !== currHandThreeOfKind[0]);
+
+                    if(handPair && currHandPair){
+                        if(handPair[0] === currHandPair[0]){
+                            tie = true;
+                        }else{
+                            if(currHandPair){
+                                hand = currentHand
+                                tie = false;
+                            }
+                        }
+                    }else{
+                        if(currHandPair){
+                            hand = currHandCount;
+                            tie = false;
+                        }
+                    }
+                }else{
+                    tie = true;
+                    // handIdx.push(i);
+                }
             }else if (UTIL.values.indexOf(handThreeOfKind[0]) < UTIL.values.indexOf(currHandThreeOfKind[0])){
                 hand = currentHand;
                 // handIdx[0] = i;
@@ -227,12 +358,9 @@ class multiChoice {
         }
 
         return [hand, handIdx, tie]
-}
-
-    compareFourOfKind(){
-        console.log('in compareFourOfKind')
     }
 
+    //done and working!!!
     comparePairs(hand, handCount, currentHand, currHandCount, handIdx, tie){ // working!!
         let handPair = Object.values(handCount).find((arr) => arr.length === 2);
         let currHandPair = Object.values(currHandCount).find((arr) => arr.length === 2);
@@ -315,6 +443,8 @@ class PlayerHand{ // fine, dont touch
     }
 
 }
+
+//have a do loop to create new multChoice games/questions, condition: answer must be right
 
 let game = new multiChoice();
 // game.hands.call(game, 5);
