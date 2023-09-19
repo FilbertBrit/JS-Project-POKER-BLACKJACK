@@ -5,13 +5,8 @@
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
-canvas {
-  border: 5px solid pink;
-  display: flex;
-}
-
 * {
-  background-color: burlywood;
+  background-color: rgb(191, 103, 103);
 }
 
 .header-container {
@@ -25,5 +20,19 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: beige;
+  color: rgb(244, 215, 210);
+}
+#players-hands {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#players-hands #player-hand {
+  display: inline-block;
+  justify-content: center;
+  padding: 0.5%;
+}
+
+h3 {
+  color: rgb(244, 215, 210);
 }

@@ -1,6 +1,61 @@
 
 import multiChoice from "./scripts/multiple-choice-game.js"; 
+import * as UTIL from "./scripts/util" ;
+// import GameView from "./scripts/game-view.js";
 
+let level = 1;
+let lost = false;
+function startGame(){ //will be called if user clicks start button
+    
+    while(!lost){
+        let game = new multiChoice();
+        game.printGame.call(game, 5);
+        let div = document.getElementById("players-hands");
+        
+
+        for(let i = 0; i < game.players.length; i++){
+            let innerDiv = document.createElement('div')
+            innerDiv.setAttribute('id', 'player-hand');
+            // innerDiv.setAttribute("style","width:200px");
+            div.append(innerDiv);
+            let h3 = document.createElement('h3')
+            h3.innerHTML = ('hand ').concat(String(i+1))
+            innerDiv.append(h3)
+
+            const playerHand = game.players[i].hand;
+            const cardOne = document.createElement('img');
+            const cardTwo = document.createElement('img');
+            const firstCardIdx = UTIL.suits.indexOf(playerHand[0].suit);
+            const secondCardIdx = UTIL.suits.indexOf(playerHand[1].suit)
+            let suitArr = UTIL.cardImgs[firstCardIdx];
+            let cardHash = (suitArr.findIndex(el => el.face === playerHand[0].value));
+            let cardImg = UTIL.cardImgs[firstCardIdx][cardHash].img;
+            cardOne.setAttribute('src', cardImg);
+            innerDiv.appendChild(cardOne);
+            suitArr = UTIL.cardImgs[secondCardIdx];
+            cardHash = (suitArr.findIndex(el => el.face === playerHand[1].value));
+            cardImg = UTIL.cardImgs[secondCardIdx][cardHash].img;
+            cardTwo.setAttribute('src', cardImg);
+            innerDiv.appendChild(cardTwo);
+
+        }
+        if(level < 3){
+            let winner = game.roundOneToTwo.call(game)
+            console.log('winner card')
+            console.log(winner)
+            level++;
+            if(level === 2) lost = true;    
+        }
+    }
+
+}
+
+// document.addEventListener("DOMContentLoaded", () => {
+    
+//     const ctx = canvasEl.getContext("2d");
+//     const game = new multiChoice();
+//     // new GameView(game, ctx).start();
+//   });
 // const canvas = document.getElementById("canvas")
 // canvas.width = 500;
 // canvas.height = 500;
@@ -8,15 +63,16 @@ import multiChoice from "./scripts/multiple-choice-game.js";
 
 //have a do loop to create new multChoice games/questions, condition: answer must be right
 
-let game = new multiChoice();
-// game.hands.call(game, 5);
-console.log(game);
-game.printGame.call(game, 5);
-game.dealer.addToHand.call(game.dealer, 1)
-// console.log("dealer hand")
-// console.log(game.dealer.hand)
-console.log('Winner Hand')
-console.log(game.bestHand.call(game, 3));
+// let game = new multiChoice();
+// // game.hands.call(game, 5);
+// console.log(game);
+// game.printGame.call(game, 5);
+// game.dealer.addToHand.call(game.dealer, 1)
+// // console.log("dealer hand")
+// // console.log(game.dealer.hand)
+// console.log('Winner Hand')
+// console.log(game.bestHand.call(game, 3));
+startGame();
 
 ///build a database with possible questions to query for to use during each round
 

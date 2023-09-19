@@ -1,13 +1,15 @@
 // @import url("./styles.css");
 @import url("./styles/home-page.scss");
 
-canvas {
-    border: 5px solid pink;
-    display: flex;
-}
+// canvas {
+//     border: 5px solid rgb(254, 250, 251);
+//     display: flex;
+// }
 
 * {
-    background-color: burlywood;
+    background-color: rgb(191, 103, 103);
+    // background-color: rgb(114, 43, 43);
+    // background-color: rgb(12, 67, 30);
 }
 
 .header-container {
@@ -26,10 +28,27 @@ canvas {
         display: flex;
         justify-content: center;
         align-items: center;
-        color: beige;
+        color: rgb(244, 215, 210);
     }
 
     #music-button{
         // color: wheat;
     }
+}
+
+#players-hands{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    #player-hand{
+        display: inline-block;
+        justify-content: center;
+        // border: 1px solid rgb(237, 232, 232);
+        // padding: 2rem 2rem;
+        padding: 0.5%;
+    }
+}
+
+h3{
+    color: rgb(244, 215, 210);
 }
