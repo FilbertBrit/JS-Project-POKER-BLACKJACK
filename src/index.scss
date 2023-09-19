@@ -15,6 +15,11 @@
     // background-color: rgb(12, 67, 30);
 }
 
+#start-message{
+    position: relative;
+    // z-index: 10;
+}
+
 .header-container {
 
     display: flex;
@@ -22,6 +27,7 @@
 
     #personal-links{
         display: inline-block;
+        // background-color: wheat;
         // display: flex;
         // justify-content: space-around;
 
@@ -37,7 +43,10 @@
     }
 
     #controls{
+        // display: inline-block;
         display: inline-block;
+
+        // justify-content: space-around;
     }
 }
 

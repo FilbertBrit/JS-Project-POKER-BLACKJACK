@@ -10,6 +10,10 @@
   background-color: rgb(200, 19, 19);
 }
 
+#start-message {
+  position: relative;
+}
+
 .header-container {
   display: flex;
   justify-content: space-around;

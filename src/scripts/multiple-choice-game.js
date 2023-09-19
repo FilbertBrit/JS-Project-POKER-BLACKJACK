@@ -14,6 +14,7 @@ export default class multiChoice {
         this.dealer.addToHand.call(this.dealer, 3) // dealer always starts off with 3 cards
         this.winningHand; // will hold winning hand
         this.outcome; // will hold a str of desc of winning hand
+        this.answerMessage = ['Correct!', 'Not quite.']
     }
 
     hands(num){ // function for generating the num of players/hands wanted per game

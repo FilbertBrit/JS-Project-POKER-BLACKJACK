@@ -5,6 +5,38 @@ import * as UTIL from "./scripts/util" ;
 
 let level = 1;
 let lost = false;
+const startMessage = 'Welcome to Poker Pro! Here you can learn how to player poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!!'
+
+// alert(startMessage);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const divStartMessage = document.getElementById("start-message");
+    divStartMessage.innerHTML = startMessage
+    const infoClick = document.getElementById("info-button")
+    
+    const scoringDiv = document.getElementById('scoring')
+    const scoringImg = document.createElement('img');
+    const src = 'images/hand-ranking.png'
+    scoringImg.setAttribute('src', src);
+    let infoVisable = false;;
+    
+
+    infoClick.addEventListener('click', (e) => {
+        // const body = document.getElementById('body')
+        if(!infoVisable){
+            scoringDiv.append(scoringImg);
+            infoVisable = true;
+        }else{
+            scoringDiv.remove(scoringImg);
+            infoVisable = false;
+        }
+        // body.setAttribute('filter', 'blur')
+    })
+
+
+        
+})
+
 function startGame(){ //will be called if user clicks start button
     
     while(!lost){
@@ -38,6 +70,7 @@ function startGame(){ //will be called if user clicks start button
             suitArr = UTIL.cardImgs[secondCardIdx];
             cardHash = (suitArr.findIndex(el => el.face === playerHand[1].value));
             cardImg = UTIL.cardImgs[secondCardIdx][cardHash].img;
+            console.log(cardImg)
             cardTwo.setAttribute('src', cardImg);
             nestedDiv.appendChild(cardTwo);
 
