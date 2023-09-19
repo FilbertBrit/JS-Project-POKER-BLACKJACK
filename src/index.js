@@ -21,6 +21,9 @@ function startGame(){ //will be called if user clicks start button
             let h3 = document.createElement('h3')
             h3.innerHTML = ('hand ').concat(String(i+1))
             innerDiv.append(h3)
+            let nestedDiv = document.createElement('div');
+            nestedDiv.setAttribute('id', 'cards-container')
+            innerDiv.appendChild(nestedDiv);
 
             const playerHand = game.players[i].hand;
             const cardOne = document.createElement('img');
@@ -31,12 +34,12 @@ function startGame(){ //will be called if user clicks start button
             let cardHash = (suitArr.findIndex(el => el.face === playerHand[0].value));
             let cardImg = UTIL.cardImgs[firstCardIdx][cardHash].img;
             cardOne.setAttribute('src', cardImg);
-            innerDiv.appendChild(cardOne);
+            nestedDiv.appendChild(cardOne);
             suitArr = UTIL.cardImgs[secondCardIdx];
             cardHash = (suitArr.findIndex(el => el.face === playerHand[1].value));
             cardImg = UTIL.cardImgs[secondCardIdx][cardHash].img;
             cardTwo.setAttribute('src', cardImg);
-            innerDiv.appendChild(cardTwo);
+            nestedDiv.appendChild(cardTwo);
 
         }
         if(level < 3){

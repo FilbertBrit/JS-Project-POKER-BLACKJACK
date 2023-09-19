@@ -1,5 +1,6 @@
 // @import url("./styles.css");
 @import url("./styles/home-page.scss");
+//use css reset, google!!
 
 // canvas {
 //     border: 5px solid rgb(254, 250, 251);
@@ -7,20 +8,23 @@
 // }
 
 * {
-    background-color: rgb(191, 103, 103);
-    // background-color: rgb(114, 43, 43);
+    // background-color: rgb(191, 103, 103);
+    // background-color: rgb(152, 151, 151);
+    background-color: rgb(114, 43, 43);
+    background-color: rgb(200, 19, 19);
     // background-color: rgb(12, 67, 30);
 }
 
 .header-container {
 
-    // margin-left: auto;
-    // margin-right: auto;
     display: flex;
     justify-content: space-around;
 
     #personal-links{
-        flex-direction: row;
+        display: inline-block;
+        // display: flex;
+        // justify-content: space-around;
+
     }
     
     #title{
@@ -29,10 +33,11 @@
         justify-content: center;
         align-items: center;
         color: rgb(244, 215, 210);
+        color: rgb(0, 0, 0);
     }
 
-    #music-button{
-        // color: wheat;
+    #controls{
+        display: inline-block;
     }
 }
 
@@ -41,14 +46,26 @@
     justify-content: center;
     align-items: center;
     #player-hand{
-        display: inline-block;
-        justify-content: center;
         // border: 1px solid rgb(237, 232, 232);
-        // padding: 2rem 2rem;
         padding: 0.5%;
+
+    }
+
+    #cards-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        max-height: 140px;
+        padding: 3.5%;
+
+        img{
+            width: 48%;
+        }
     }
 }
 
 h3{
     color: rgb(244, 215, 210);
+    color: black;
+    // color: red;
 }

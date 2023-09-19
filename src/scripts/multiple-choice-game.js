@@ -8,9 +8,12 @@ export default class multiChoice {
 
         this.deck = deckCreation(); // deck used for multi-choice game
         this.players = []; //array that will hold all hands of the current game
-        this.hands(5) // adds 5 players to the game, players array
+        this.hands(3) // adds 3 or 5 players to the game, players array, depending on input
+        
         this.dealer = new PlayerHand(this.deck); // creating dealer hand
         this.dealer.addToHand.call(this.dealer, 3) // dealer always starts off with 3 cards
+        this.winningHand; // will hold winning hand
+        this.outcome; // will hold a str of desc of winning hand
     }
 
     hands(num){ // function for generating the num of players/hands wanted per game
@@ -22,6 +25,7 @@ export default class multiChoice {
     }
 
     printGame(){ // prints all cards in the game(dealer + players)
+        console.log(this)
         console.log(this.dealer.hand)
         for(let i = 0; i < this.players.length; i++){
             console.log(this.players[i].hand);
