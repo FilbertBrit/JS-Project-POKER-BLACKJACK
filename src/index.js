@@ -410,3 +410,30 @@ console.log(game.bestHand.call(game, 3));
 
 ///build a database with possible questions to query for to use during each round
 
+
+const canvas = document.querySelector('#canvas');
+createTable(game);
+
+function createTable(game){
+    for(let i = 0; i < 1; i++){
+        // const playerHand = game.players[i].hand
+        // const cardOne = document.createElement('img');
+        // const cardTwo = document.createElement('img');
+
+        // UTIL.suits.indexOf(currHandPair[0])
+
+        // const cardOneImg = UTIL.cardImgs.find({name} => (name === playerHand[0].suit.concat('-').concat(playerHand[0].value.toString()))
+        // const cardTwoImg = UTIL.cardImgs.find((card) => {
+        //     let attribues = card.name.split("-")
+
+        //     attribues[0] === playerHand[1].suit && parseInt(attribues[1]) === playerHand[1].value
+        // })
+        // console.log(cardOneImg);
+        // console.log(cardTwoImg);
+        // cardOne.setAttribute('src', cardOneImg[img])
+        // cardTwo.setAttribute('src', cardTwoImg[img])
+
+        // console.log(cardOne);
+        // console.log(cardTwo);
+    }
+}
