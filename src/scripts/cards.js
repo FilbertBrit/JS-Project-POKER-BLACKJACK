@@ -10,9 +10,6 @@ class Card {
 
 // returning a generated deck of cards
 export function deckCreation(){
-    //variables for creation of cards/deck
-    // const suits = ['♣', '♦', '♥', '♠']
-    // const values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
     //flatten method with map
     let deck = UTIL.suits.flatMap(suit => {
         return UTIL.values.map(value => { // returns an array of cards of a suit paried with each value in values array
