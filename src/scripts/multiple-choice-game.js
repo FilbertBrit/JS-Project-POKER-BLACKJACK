@@ -25,10 +25,10 @@ export default class multiChoice {
 
     printGame(){ // prints all cards in the game(dealer + players)
         console.log(this)
-        console.log(this.dealer.hand)
-        for(let i = 0; i < this.players.length; i++){
-            console.log(this.players[i].hand);
-        }
+        // console.log(this.dealer.hand)
+        // for(let i = 0; i < this.players.length; i++){
+        //     console.log(this.players[i].hand);
+        // }
     }
 
     // need to work on 4-of-kind occurance
