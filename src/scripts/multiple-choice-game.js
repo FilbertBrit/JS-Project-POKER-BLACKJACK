@@ -9,12 +9,10 @@ export default class multiChoice {
         this.deck = deckCreation(); // deck used for multi-choice game
         this.players = []; //array that will hold all hands of the current game
         this.hands(3) // adds 3 or 5 players to the game, players array, depending on input
-        
         this.dealer = new PlayerHand(this.deck); // creating dealer hand
         this.dealer.addToHand.call(this.dealer, 3) // dealer always starts off with 3 cards
         this.winningHand; // will hold winning hand
         this.outcome; // will hold a str of desc of winning hand
-        this.answerMessage = ['Correct!', 'Not quite.']
     }
 
     hands(num){ // function for generating the num of players/hands wanted per game
@@ -147,7 +145,8 @@ export default class multiChoice {
         // if(tie) console.log("tie")
         // console.log('in roundOneToTwo')
         // console.log(hand)
-        return hand;
+        this.winningHand = hand;
+        return this;
         // end of game logic for round 1-2
     }
 
@@ -171,19 +170,23 @@ export default class multiChoice {
     compareHandValues(hand1, hand2){ // WORKING!!
         let hand1Max = (UTIL.values.indexOf(hand1[0].value) > UTIL.values.indexOf(hand1[1].value)) ? UTIL.values.indexOf(hand1[0].value) : UTIL.values.indexOf(hand1[1].value);
         let hand2Max = (UTIL.values.indexOf(hand2[0].value) > UTIL.values.indexOf(hand2[1].value)) ? UTIL.values.indexOf(hand2[0].value) : UTIL.values.indexOf(hand2[1].value);
-        // console.log(hand1Max)
-        // console.log(hand2Max)
 
         let result;
         if (hand1Max === hand2Max){
-            result = 'tie';
-        }else if (hand1Max > hand2Max){
-            result = hand1
-        }else{
+            if(hand1[0].value===hand2[0].value){
+                if(UTIL.values.indexOf(hand1[1].value) < UTIL.values.indexOf(hand2[1].value)) result = hand2
+            }else if(hand1[0].value===hand2[1].value){
+                if(UTIL.values.indexOf(hand1[1].value) < UTIL.values.indexOf(hand2[0].value)) result = hand2
+            }else if(hand1[1].value === hand2[0].value){
+                if(UTIL.values.indexOf(hand1[0].value) < UTIL.values.indexOf(hand2[1].value)) result = hand2
+            }else if(hand1[1].value === hand2[1].value){ 
+                if(UTIL.values.indexOf(hand1[0].value) < UTIL.values.indexOf(hand2[0].value)) result = hand2
+            }else{
+                result = 'tie';
+            }
+        }else if (hand1Max < hand2Max){
             result = hand2
         }
-        // console.log('In compareHandValues')
-        // console.log(result)
         return result
     }
 

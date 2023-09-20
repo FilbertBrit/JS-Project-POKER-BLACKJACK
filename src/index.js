@@ -4,37 +4,18 @@ import * as UTIL from "./scripts/util" ;
 // import GameView from "./scripts/game-view.js";
 
 const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!!                   READY?!'
+let answerMessage = ['Correct!', 'Not quite.']
+let level = 1;
+let lost = false;
+let game;
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+    startGame(level);
     const divStartMessage = document.getElementById("start-message");
     divStartMessage.innerHTML = startMessage
     // const divStartbutton = document.getElementById("start-button")
     // divStartbutton.innerHTML = ('Click Here To Start');
-
-    const infoClick = document.getElementById("info-button")
-    let infoVisable = false;
     
-    const scoringDiv = document.getElementById('scoring')
-    const scoringImg = document.createElement('img');
-    const src = 'images/hand-ranking.png'
-    scoringImg.setAttribute('src', src);
-    const infoH3 = document.createElement('h3');
-    infoH3.innerHTML = 'Tap on info icon again to remove scoring sheet.'
-    
-    infoClick.addEventListener('click', (e) => {
-        // const body = document.getElementById('body')
-        if(!infoVisable){
-            scoringDiv.append(infoH3)
-            scoringDiv.append(scoringImg);
-            infoVisable = true;
-        }else{
-            infoH3.remove();
-            scoringImg.remove();
-            infoVisable = false;
-        }
-        // body.setAttribute('filter', 'blur')
-    })
 
     // want to do something similar for my music
     // function toggleMusic(){
@@ -49,47 +30,100 @@ document.addEventListener("DOMContentLoaded", () => {
     //       }
     //     }
     // }
-
-    let level = 1;
-    let lost = false;
-    // while(!lost){
-        startGame(level)
+         
     //     lost = true;
     // }
-
-
-    // const infoClick = document.getElementById("info-button")
-    document.getElementById('players-hands').addEventListener('click', e => {
-        console.log(e.target)
-        console.log(e.target.parentNode)
-        console.log(e.target.parentNode.parentNode)
-        console.log(e.target.parentNode.parentNode.id)
-        //maybe do a switch case loop for finding div selected
-        // switch(expression) {
-        //     case x:
-        //         // code block
-        //         break;
-        //     case y:
-        //         // code block
-        //         break;
-        //     default:
-        //         // code block
-        // }
-    })
     
 
-    // if(level < 3){
-    //     let winner = game.roundOneToTwo.call(game)
-    //     console.log('winner card')
-    //     console.log(winner)
-    //     level++;
-    //     if(level === 2) lost = true;    
+    // document.getElementById('players-hands').addEventListener('click', e => {
+    //     let answer;
+    
+    //     if(e.target.id.slice(0,e.target.id.length-1) === 'player-hand'){
+    //         answer = e.target.id.slice(e.target.id.length-1);
+    //         checkAnswer(game, answer)
+            
+    //     }else if(e.target.parentNode.id.slice(0,e.target.parentNode.id.length-1) === 'player-hand'){
+    //         answer = e.target.parentNode.id.slice(e.target.id.length-1);
+    //         checkAnswer(game, answer)
+            
+    //     }else if(e.target.parentNode.parentNode.id.slice(0,e.target.parentNode.parentNode.id.length-1) === 'player-hand'){
+    //         answer = e.target.parentNode.parentNode.id.slice(e.target.id.length-1);
+    //         checkAnswer(game, answer)
+    //     }
+    // })
+    // let game = startGame(level);
+    // while(!lost){
+    //     let result = startGame(++level);
+    //     lost = true;
     // }
-        
+    
 })
 
+//listener that grabs the hand the user clicks one to check
+document.getElementById('players-hands').addEventListener('click', e => {
+    let answer;
+
+    if(e.target.id.slice(0,e.target.id.length-1) === 'player-hand'){
+        answer = e.target.id.slice(e.target.id.length-1);
+        checkAnswer(game, answer)
+        
+    }else if(e.target.parentNode.id.slice(0,e.target.parentNode.id.length-1) === 'player-hand'){
+        answer = e.target.parentNode.id.slice(e.target.id.length-1);
+        checkAnswer(game, answer)
+        
+    }else if(e.target.parentNode.parentNode.id.slice(0,e.target.parentNode.parentNode.id.length-1) === 'player-hand'){
+        answer = e.target.parentNode.parentNode.id.slice(e.target.id.length-1);
+        checkAnswer(game, answer)
+    }
+})
+
+
+//code that creates and shows the scoring img div
+const infoClick = document.getElementById("info-button")
+let infoVisable = false;
+const scoringDiv = document.getElementById('scoring')
+const scoringImg = document.createElement('img');
+const src = 'images/hand-ranking.png'
+scoringImg.setAttribute('src', src);
+const infoH3 = document.createElement('h3');
+infoH3.innerHTML = 'Tap on info icon again to remove scoring sheet.'
+infoClick.addEventListener('click', (e) => {
+    // const body = document.getElementById('body')
+    if(!infoVisable){
+        scoringDiv.append(infoH3)
+        scoringDiv.append(scoringImg);
+        infoVisable = true;
+    }else{
+        infoH3.remove();
+        scoringImg.remove();
+        infoVisable = false;
+    }
+    // body.setAttribute('filter', 'blur')
+})
+    
+//checks if the hand the user clicked on is correct, creates new game if correct
+function checkAnswer(game, answer){
+    if(game.winningHand === game.players[answer-1].hand){
+        console.log(answerMessage[0]);
+        level++;
+        let div = document.getElementById("players-hands");
+        div.remove();
+        let body = document.getElementById('body')
+        div = document.createElement('div')
+        div.setAttribute('id', 'players-hands')
+        body.append(div)
+        lost = false;
+        startGame(level);
+    }else{
+        console.log(answerMessage[1]);
+        lost = true;
+    }
+    
+}
+
+//will create a game, find the winning hand and output the game onto the app
 function startGame(level){
-    let game = new multiChoice();
+    game = new multiChoice();
     let gameResult = game.bestHand(level);
     game.printGame.call(game);
     console.log('Game Results', gameResult)
