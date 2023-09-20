@@ -4,7 +4,8 @@ import * as UTIL from "./scripts/util" ;
 // import GameView from "./scripts/game-view.js";
 
 const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!! READY?!'
-let answerMessage = ['Correct!', 'Not quite.']
+// const startMes = 'Welcome to Poker Pro! Here you can learn how to play poker.';
+let answerMessage = ['Correct!', 'Not quite.'];
 let level = 1;
 let lost = false;
 let streak = 0
@@ -140,14 +141,13 @@ function checkAnswer(game, answer){
         console.log(answerMessage[0]);
         feedback.innerHTML = answerMessage[0]
         // level++;
-        // console.log(level)
         streak++;
         score.innerHTML = 'Score: '+ streak.toString()
         lost = false;
+
         setTimeout(() => {
             let div = document.getElementById("players-hands");
             div.remove();
-            let body = document.getElementById('body')
             div = document.createElement('div')
             div.setAttribute('id', 'players-hands')
             board.append(div)
@@ -175,6 +175,8 @@ function checkAnswer(game, answer){
         feedback.innerHTML = answerMessage[1];
         streak = 0;
         score.innerHTML = 'Score: 0'
+        let feedback2 = document.createElement('h1')
+        feedback.innerHTML = game.outcome;
         setTimeout(() => {
             feedback.innerHTML = 'Try Again! Tap the info icon to see hand Ranks'
         }, 1000)
@@ -184,6 +186,10 @@ function checkAnswer(game, answer){
 
 
     
+}
+
+function lostStreak(){
+
 }
 
 function userSelect(){

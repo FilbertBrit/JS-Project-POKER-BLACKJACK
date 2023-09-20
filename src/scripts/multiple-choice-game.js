@@ -128,11 +128,12 @@ export default class multiChoice {
                         tie = true;
                     }else{
                         hand = (UTIL.values.indexOf(hand[0].value) > UTIL.values.indexOf(currentHand[0].value) ? hand : currentHand)
+                        this.outcome = `hand ${this.players.map(player => {return player.hand}).indexOf(hand)} has the highest value pair`
                     }
                 }else{
                     hand = (handPair ? hand : currentHand)
+                    this.outcome = `hand ${this.players.map(player => {return player.hand}).indexOf(hand)} has a pair`
                 }
-
 
             }else{ // no pair, just checking for highest card
                 let result = this.compareHandValues(hand, currentHand);
@@ -141,6 +142,7 @@ export default class multiChoice {
                 }else if (result === currentHand){
                     hand = result;
                 }
+                this.outcome = `hand ${this.players.map(player => {return player.hand}).indexOf(hand)} has the highest value card`
             }
         }
         // if(tie) console.log("tie")
