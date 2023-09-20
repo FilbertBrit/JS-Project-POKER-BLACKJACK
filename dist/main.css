@@ -149,6 +149,7 @@ h3{
 
 #start-message {
   position: relative;
+  padding: 3.5%;
 }
 
 .header-container {
@@ -164,6 +165,7 @@ h3{
   align-items: center;
   color: rgb(244, 215, 210);
   color: rgb(0, 0, 0);
+  font-size: 250%;
 }
 .header-container #controls {
   display: inline-block;
@@ -173,9 +175,10 @@ h3{
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2%;
 }
 #players-hands #player-hand {
-  padding: 0.5%;
+  padding: 1.5%;
 }
 #players-hands #cards-container {
   display: flex;
@@ -191,7 +194,17 @@ h3{
 h3 {
   color: rgb(244, 215, 210);
   color: black;
-  font-size: medium;
+}
+
+#feedback-container {
+  font-size: 140%;
+  padding: 2%;
+}
+
+#score {
+  display: flex;
+  justify-content: right;
+  padding: 2%;
 }
 
 #dealer-cards {
@@ -199,6 +212,15 @@ h3 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 2%;
+}
+#dealer-cards #dealerCardContainer {
+  display: flex;
+  justify-content: center;
+}
+#dealer-cards #dealer-title {
+  display: flex;
+  justify-content: center;
 }
 
 #scoring {
@@ -210,4 +232,9 @@ h3 {
 #scoring #hand-ranks {
   height: 80vh;
   width: fit-content;
+}
+
+.questions {
+  font-size: 200%;
+  padding: 2%;
 }

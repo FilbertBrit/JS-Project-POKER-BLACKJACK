@@ -7,18 +7,20 @@ const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker
 let answerMessage = ['Correct!', 'Not quite.']
 let level = 1;
 let lost = false;
+let streak = 0
 let game;
 const scoringDiv = document.getElementById('scoring') //div holding scoring sheet
 const board = document.getElementById('board') //div holding game boards
+const dealerDiv = document.getElementById('dealer-cards'); //div that holds dealers cards
+const feedbackContainer = document.getElementById('feedback-container')
+const score = document.getElementById('score');
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
     scoringDiv.style.display = "none";  //blocks div from displaying contents
-
     startGame(level);
-    //call func to setup listener
-    const divStartMessage = document.getElementById("start-message");
-    divStartMessage.innerHTML = startMessage
+    document.getElementById("start-message").innerHTML = startMessage;
     // const divStartbutton = document.getElementById("start-button")
     // divStartbutton.innerHTML = ('Click Here To Start');
     
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //     let result = startGame(++level);
     //     lost = true;
     // }
-    
+
 })
 
 
@@ -51,20 +53,22 @@ document.addEventListener("DOMContentLoaded", () => {
 function startGame(level){
 
     game = new multiChoice();
-    const gameResult = game.bestHand(level);
-    game.printGame.call(game);
-    console.log('Game Results', gameResult.winningHand)
+    const gameResult = game.bestHand(level); // grabs the best hand depending on level
+    game.printGame.call(game); //debugging purposes, to see the full game info in console
     const questionH2 = document.querySelector("#questionH2");
     
     if(level > 1){
-        const dealerDiv = document.getElementById("dealer-cards")
-        const h3 = document.createElement('h3');
-        h3.innerHTML = 'Dealer Hand'
-        dealerDiv.append(h3)
+        dealerDiv.style.display = 'block';
         const dealerCardContainer = document.createElement('div')
-        dealerCardContainer.setAttribute('id', 'dealerCardContainer')
+        dealerCardContainer.setAttribute('id','dealerCardContainer');
+        dealerCardContainer.style.display = "flex";
+        const dealerH3 = document.createElement('h3')
+        dealerH3.innerHTML = "Dealer's hand"
+        dealerH3.setAttribute('id', 'dealer-title')
+        dealerDiv.append(dealerH3)
         dealerDiv.append(dealerCardContainer);
         const dealersHand = game.dealer.hand;
+
         for(let i = 0; i < dealersHand.length; i++){
             const card = document.createElement('img');
             const cardIdx = UTIL.suits.indexOf(dealersHand[i].suit);
@@ -74,6 +78,8 @@ function startGame(level){
             card.setAttribute('src', cardImg);
             dealerCardContainer.appendChild(card);
         }
+    }else{
+        dealerDiv.style.display = 'none'
     }
 
     if([1,4,5].includes(level)){
@@ -116,49 +122,62 @@ function startGame(level){
         nestedDiv.appendChild(cardTwo);
 
     }
-    //call func to 
+    userSelect();
 
     return gameResult // return winning card, later [card, tie, game?, idx?]
 
 }
+//create a feefback element and add text of feedback
+let feedback = document.createElement('h1')
+feedbackContainer.append(feedback)
 
 //checks if the hand the user clicked on is correct, creates new game if correct
 function checkAnswer(game, answer){
+    // console.log(game.players[answer-1].hand)
+
     if(game.winningHand === game.players[answer-1].hand){
+
         console.log(answerMessage[0]);
-        level++;
-        console.log(level)
-
-        let div = document.getElementById("players-hands");
-        div.remove();
-        let body = document.getElementById('body')
-        div = document.createElement('div')
-        div.setAttribute('id', 'players-hands')
-        body.append(div)
-
-        // const container = document.getElementById("dealerCardContainer")
-        // container.remove();
-        // const dealerDiv = document.getElementById("dealer-cards")
-        // container = document.createElement('div')
-        // container.setAttribute('id', 'dealerCardContainer')
-        // container.innerHTML = 'Dealer Hand'
-        // const h3 = document.createElement('h3');
-        // h3.innerHTML = 'Dealer Hand'
-        // container.append(h3)
-        // dealerDiv.append(container);
-
+        feedback.innerHTML = answerMessage[0]
+        // level++;
+        // console.log(level)
+        streak++;
+        score.innerHTML = 'Score: '+ streak.toString()
         lost = false;
-        div = document.getElementById('scoring');
-        let answer = document.createElement('h1')
-        answer.innerHTML = answerMessage[0]
-        div.append(answer);
-        // startGame(level);
         setTimeout(() => {
-            answer.remove();
+            let div = document.getElementById("players-hands");
+            div.remove();
+            let body = document.getElementById('body')
+            div = document.createElement('div')
+            div.setAttribute('id', 'players-hands')
+            board.append(div)
+    
+            if(document.getElementById("dealerCardContainer")){
+    
+                let dealerH3 = document.getElementById('dealer-title')
+                dealerH3.remove();
+                dealerDiv.append(dealerH3)
+                let dealerCardContainer = document.getElementById("dealerCardContainer")
+                dealerCardContainer.remove();
+                dealerCardContainer = document.createElement('div')
+                dealerCardContainer.setAttribute('id', 'dealerCardContainer')
+                dealerCardContainer.style.display = "flex";
+                dealerDiv.append(dealerCardContainer);
+            }
+            feedback.remove();
+            feedback = document.createElement('h1')
+            feedbackContainer.append(feedback)
+
             startGame(level);
-        }, 3 * 1000);
+        }, 500);
     }else{
         console.log(answerMessage[1]);
+        feedback.innerHTML = answerMessage[1];
+        streak = 0;
+        score.innerHTML = 'Score: 0'
+        setTimeout(() => {
+            feedback.innerHTML = 'Try Again! Tap the info icon to see hand Ranks'
+        }, 1000)
         lost = true;
     }
 
@@ -167,22 +186,25 @@ function checkAnswer(game, answer){
     
 }
 
-document.getElementById('players-hands').addEventListener('click', e => {
-    let answer;
+function userSelect(){
+    document.getElementById('players-hands').addEventListener('click', e => {
+        let answer;
+    
+        if(e.target.id.slice(0,e.target.id.length-1) === 'player-hand'){
+            answer = e.target.id.slice(e.target.id.length-1);
+            checkAnswer(game, answer)
+            
+        }else if(e.target.parentNode.id.slice(0,e.target.parentNode.id.length-1) === 'player-hand'){
+            answer = e.target.parentNode.id.slice(e.target.id.length-1);
+            checkAnswer(game, answer)
+            
+        }else if(e.target.parentNode.parentNode.id.slice(0,e.target.parentNode.parentNode.id.length-1) === 'player-hand'){
+            answer = e.target.parentNode.parentNode.id.slice(e.target.id.length-1);
+            checkAnswer(game, answer)
+        }
+    })
+}
 
-    if(e.target.id.slice(0,e.target.id.length-1) === 'player-hand'){
-        answer = e.target.id.slice(e.target.id.length-1);
-        checkAnswer(game, answer)
-        
-    }else if(e.target.parentNode.id.slice(0,e.target.parentNode.id.length-1) === 'player-hand'){
-        answer = e.target.parentNode.id.slice(e.target.id.length-1);
-        checkAnswer(game, answer)
-        
-    }else if(e.target.parentNode.parentNode.id.slice(0,e.target.parentNode.parentNode.id.length-1) === 'player-hand'){
-        answer = e.target.parentNode.parentNode.id.slice(e.target.id.length-1);
-        checkAnswer(game, answer)
-    }
-})
 
 //code that creates and shows the scoring img div
 const infoClick = document.getElementById("info-button")
@@ -190,7 +212,7 @@ infoClick.addEventListener('click', (e) => {
     
     if(scoringDiv.style.display === 'flex'){
         scoringDiv.style.display = 'none'
-        board.style.display = 'flex'
+        board.style.display = 'block'
     }else{
         scoringDiv.style.display = 'flex';
         board.style.display = 'none'
