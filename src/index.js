@@ -30,27 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //       }
     //     }
     // }
-         
-    //     lost = true;
-    // }
-    
 
-    // document.getElementById('players-hands').addEventListener('click', e => {
-    //     let answer;
     
-    //     if(e.target.id.slice(0,e.target.id.length-1) === 'player-hand'){
-    //         answer = e.target.id.slice(e.target.id.length-1);
-    //         checkAnswer(game, answer)
-            
-    //     }else if(e.target.parentNode.id.slice(0,e.target.parentNode.id.length-1) === 'player-hand'){
-    //         answer = e.target.parentNode.id.slice(e.target.id.length-1);
-    //         checkAnswer(game, answer)
-            
-    //     }else if(e.target.parentNode.parentNode.id.slice(0,e.target.parentNode.parentNode.id.length-1) === 'player-hand'){
-    //         answer = e.target.parentNode.parentNode.id.slice(e.target.id.length-1);
-    //         checkAnswer(game, answer)
-    //     }
-    // })
     // let game = startGame(level);
     // while(!lost){
     //     let result = startGame(++level);
