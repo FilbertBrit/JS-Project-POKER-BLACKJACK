@@ -60,7 +60,7 @@ function startGame(level){
 
     game = new multiChoice();
     const gameResult = game.bestHand(level); // grabs the best hand depending on level
-    game.printGame.call(game); //debugging purposes, to see the full game info in console
+    // game.printGame.call(game); //debugging purposes, to see the full game info in console
     const questionH2 = document.querySelector("#questionH2");
     
     if(level > 1){
