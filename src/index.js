@@ -145,7 +145,7 @@ feedbackContainer.append(feedback)
 function checkAnswer(game, answer){
     // console.log(game.players[answer-1].hand)
 
-    if(game.winningHand === game.players[answer-1].hand){
+    if(game.winningHand === game.players[answer-1].hand || (game.tie && game.tiedHand === game.players[answer-1].hand)){
 
         console.log(winningMessage[0]);
         if(streak === 0){
