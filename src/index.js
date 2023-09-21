@@ -147,7 +147,11 @@ function checkAnswer(game, answer){
     if(game.winningHand === game.players[answer-1].hand){
 
         console.log(winningMessage[0]);
-        feedback.innerHTML = winningMessage[Math.floor(Math.random() * winningMessage.length)] + ' ' + game.outcome
+        if(streak === 0){
+            feedback.innerHTML = winningMessage[0] + ' ' + game.outcome
+        }else{
+            feedback.innerHTML = winningMessage[Math.floor(Math.random() * winningMessage.length)] + ' ' + game.outcome
+        }
         // level++;
         streak++;
         score.innerHTML = 'Score: '+ streak.toString()
