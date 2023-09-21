@@ -240,9 +240,14 @@ h3 {
 }
 
 #losing-screen {
-  padding: 4%;
+  padding: 10%;
+  padding-left: 30%;
+  font-size: 150%;
   display: flex;
   justify-content: center;
+}
+#losing-screen #play-button {
+  padding-left: 20%;
 }
 
 #losing-score {
