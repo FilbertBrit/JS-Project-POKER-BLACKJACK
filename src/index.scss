@@ -165,16 +165,24 @@ h3{
         margin-left: 100px;
         margin-right: 100px;
         animation-direction: normal;
-        animation: myfirst 20s infinite;
+        animation: myfirst 7s infinite;
         position: relative;
+        // @keyframes myfirst {
+        //     0%   { left: 0px; top: 0px;}
+        //     20%  { left: 500px; top: 0px;}
+        //     // 75%  {background: green; left: 0px; top: 200px;}
+        //     40% { left: 0px; top: 0px;}
+        // }
         @keyframes myfirst {
-            0%   { left: 0px; top: 0px;}
-            20%  { left: 500px; top: 0px;}
-            // 75%  {background: green; left: 0px; top: 200px;}
-            40% { left: 0px; top: 0px;}
-          }
-        // display: flex;
-        // justify-content: right;
+            0%,
+            100% {
+              left: 0;
+            }
+          
+            50% {
+              left: 500px;
+            }
+        }
     }
     margin-top: 250px;
     margin-bottom: 50px;
