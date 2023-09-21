@@ -160,8 +160,9 @@ h3{
     }
     #opening-start{
         background-color: rgb(245, 245, 245);
-        margin-left: 100px;
-        margin-right: 100px;
+        // margin-left: 100px;
+        // margin-right: 100px;
+        max-width: 100% ;
         animation-direction: normal;
         animation: myfirst 7s infinite;
         position: relative;
@@ -172,7 +173,7 @@ h3{
             }
           
             50% {
-              left: 500px;
+              left: 80%;
             }
         }
     }
