@@ -277,7 +277,7 @@ h3 {
   font-size: 300%;
 }
 #opening #opening-start {
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
   margin-left: 100px;
   margin-right: 100px;
   animation-direction: normal;

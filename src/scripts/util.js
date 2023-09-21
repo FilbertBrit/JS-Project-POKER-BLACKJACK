@@ -235,7 +235,7 @@ export const cardImgs = [
 ];
 export const questions = 
 [
-    ['Which hand is the strognest hand?'],
+    ['Which hand is the strongest hand?'],
     ['Given the dealers hand, which hand now has the strongest hand?'],
     ['Given that all cards have been dealt, which hand has the strongest hand?']
 ];

@@ -199,8 +199,12 @@ function checkAnswer(game, answer){
             loseMessage.innerHTML = `Your score was ${streak}, care to beat it? `;
             streak = 0;
 
+            setTimeout(() => {
+                
+            }, 1500)
+
             checkRetryGame();
-        }, 2 * 1000)
+        }, 2.5 * 1000)
         lost = true;
     }
     
