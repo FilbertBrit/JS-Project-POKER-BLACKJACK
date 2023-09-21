@@ -217,18 +217,34 @@ function userSelect(){
         }
     })
 }
-
+let infoClicker;
 //code that creates and shows the scoring img div
 const infoClick = document.getElementById("info-button")
 infoClick.addEventListener('click', (e) => {
-    
-    if(scoringDiv.style.display === 'flex'){
-        scoringDiv.style.display = 'none'
+
+    if(loseScreen.style.display === 'block'){
+        infoClicker = 'lockScreen'
+        scoringDiv.style.display = 'flex';
+        loseScreen.style.display = 'none'
+
+    }else if(board.style.display === 'block'){
+        infoClicker = 'board'
+        scoringDiv.style.display = 'flex';
+        board.style.display = 'none'
+    }else if(infoClicker === 'lockScreen'){
+        infoClicker = ''
+        scoringDiv.style.display = 'none';
+        loseScreen.style.display = 'block'
+    }else if(infoClicker === 'board'){
+        infoClicker = ''
+        scoringDiv.style.display = 'none';
         board.style.display = 'block'
-    }else{
+    }else if(streak === 0){ // not sure why I need this
+        infoClicker = 'board'
         scoringDiv.style.display = 'flex';
         board.style.display = 'none'
     }
+
 })
 soundButton.addEventListener('click', e => {
     //add code to start/stop music
