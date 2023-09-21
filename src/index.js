@@ -17,11 +17,14 @@ const dealerDiv = document.getElementById('dealer-cards'); //div that holds deal
 const feedbackContainer = document.getElementById('feedback-container')
 const score = document.getElementById('score');
 const playerHandsContainer = document.getElementById('players-hands-container')
+let loseScreen = document.getElementById('losing-screen');
+let loseMessage = document.getElementById('losing-message')
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
     scoringDiv.style.display = "none";  //blocks div from displaying contents
+    loseScreen.style.display = 'none';
     startGame(level);
     document.getElementById("start-message").innerHTML = startMessage;
     // const divStartbutton = document.getElementById("start-button")
@@ -171,28 +174,24 @@ function checkAnswer(game, answer){
             feedbackContainer.append(feedback)
 
             startGame(level);
-        }, 1000);
+        }, 1350);
     }else{
         console.log(losingMessage[0]);
         feedback.innerHTML = losingMessage[0] + game.outcome;
         score.innerHTML = 'Score: 0'
-        let feedback2 = document.createElement('h1')
+
         setTimeout(() => {
-            //output previous score
-            
+
+            board.style.display = 'none'
+            loseScreen.style.display = 'block'
+            loseMessage.innerHTML = `Your score was ${streak}, care to beat it? `;
             streak = 0;
-            //add button for start of new game and hid the content of the board/game
-        }, 2.5 * 1000)
+
+            checkRetryGame();
+        }, 2 * 1000)
         lost = true;
     }
-
-
-
     
-}
-
-function lostStreak(){
-
 }
 
 function userSelect(){
@@ -214,7 +213,6 @@ function userSelect(){
     })
 }
 
-
 //code that creates and shows the scoring img div
 const infoClick = document.getElementById("info-button")
 infoClick.addEventListener('click', (e) => {
@@ -228,5 +226,32 @@ infoClick.addEventListener('click', (e) => {
     }
 })
 
+function checkRetryGame(){
+
+    document.getElementById('play-button').addEventListener('click', e => {
+        let div = document.getElementById("players-hands");
+        div.remove();
+
+        if(document.getElementById("dealerCardContainer")){
+
+            let dealerH3 = document.getElementById('dealer-title')
+            dealerH3.remove();
+            dealerDiv.append(dealerH3)
+            let dealerCardContainer = document.getElementById("dealerCardContainer")
+            dealerCardContainer.remove();
+            dealerCardContainer = document.createElement('div')
+            dealerCardContainer.setAttribute('id', 'dealerCardContainer')
+            dealerCardContainer.style.display = "flex";
+            dealerDiv.append(dealerCardContainer);
+        }
+        feedback.remove();
+        feedback = document.createElement('h1')
+        feedbackContainer.append(feedback)
+
+        startGame(1);
+        loseScreen.style.display = 'none'
+        board.style.display = 'block';
+    })
+}
 
 // //have a do loop to create new multChoice games/questions, condition: answer must be right

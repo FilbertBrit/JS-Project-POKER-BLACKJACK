@@ -127,3 +127,14 @@ h3{
     font-size: 200%;
     padding: 2%;
 }
+
+#losing-score{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#losing-message{
+    font-size: 150%;
+    padding: 1.5%;
+}
