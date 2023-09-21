@@ -8,7 +8,7 @@ class Card {
     }
 }
 
-// returning a generated deck of cards
+// returning a generated deck of cards objects
 export function deckCreation(){
     //flatten method with map
     let deck = UTIL.suits.flatMap(suit => {
