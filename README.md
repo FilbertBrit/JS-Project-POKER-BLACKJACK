@@ -9,9 +9,8 @@ standard 52-card deck.
 
 ## General Principle of Game
 
-Players can receive upto 5 cards, which makes up their "poker hand".
-The dealer will also draw upto 5 cards, cards players could also use to strengthen their 
-hand.
+Players will recieve 2 cards.
+The dealer start off with 3 cards and will draw upto 2 more cards, cards players could also use to strengthen their hand.
 
 Players can raise, call, or fold during their turn based on how strong they feel their 
 hands currently is. 
@@ -41,8 +40,10 @@ making a bet no one can or is willing to bet.
 In Poker, users will be able to:
 
 - Start and end the game
+- Look at a scoring sheet
 - Choice of type of game: interactive tutorial, basic game
-- Select game functions: bet, call, fold
+- Interactive tutorial: select strongest hand
+- Basic game: select game functions of bet, call, or fold
 
 In addition this project will include: 
 
