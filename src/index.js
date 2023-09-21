@@ -20,7 +20,10 @@ const playerHandsContainer = document.getElementById('players-hands-container')
 let loseScreen = document.getElementById('losing-screen');
 let loseMessage = document.getElementById('losing-message');
 const soundButton = document.getElementById('sound-button');
-
+const audio = document.getElementById('audio')
+audio.style.display = 'none';
+audio.pause();
+let audioActive = false;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -54,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // }
 
 })
-
 
 //will create a game, find the winning hand and output the game onto the app
 function startGame(level){
@@ -137,6 +139,7 @@ function startGame(level){
     return gameResult // return winning card, later [card, tie, game?, idx?]
 
 }
+
 //create a feefback element and add text of feedback
 let feedback = document.createElement('h1')
 feedbackContainer.append(feedback)
@@ -217,6 +220,7 @@ function userSelect(){
         }
     })
 }
+
 let infoClicker;
 //code that creates and shows the scoring img div
 const infoClick = document.getElementById("info-button")
@@ -246,10 +250,22 @@ infoClick.addEventListener('click', (e) => {
     }
 
 })
+
 soundButton.addEventListener('click', e => {
     //add code to start/stop music
     //and change music icon
+    if(!audioActive){
+        audio.play();
+        soundButton.setAttribute('src', 'images/sound-off.png')
+        audioActive = true;
+    }else{
+        audio.pause();
+        soundButton.setAttribute('src', 'images/sound-high.png')
+        audioActive = false;
+    }
+
 })
+
 
 function checkRetryGame(){
 
