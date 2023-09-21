@@ -152,7 +152,9 @@ export default class multiChoice {
                     // console.log(hand)
                     // console.log((this.players.map(player => {return player.hand}).indexOf(hand)))
                 }else{
-                    this.outcome = `Hand ${(this.players.map(player => {return player.hand}).indexOf(hand))+ 1} has the highest value card.`
+                    if(!this.tie){
+                        this.outcome = `Hand ${(this.players.map(player => {return player.hand}).indexOf(hand))+ 1} has the highest value card.`
+                    }
                 }
             }
         }
