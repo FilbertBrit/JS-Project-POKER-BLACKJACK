@@ -5,7 +5,8 @@ import * as UTIL from "./scripts/util" ;
 
 const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!! READY?!'
 // const startMes = 'Welcome to Poker Pro! Here you can learn how to play poker.';
-let answerMessage = ['Correct!', 'Not quite.'];
+const winningMessage = ['Correct!', 'Nice!', 'Good Job!', 'Wow, correct again!', 'Correct, you are on a roll!', 'Keep it up!!']
+const losingMessage = ['Not quite.'];
 let level = 1;
 let lost = false;
 let streak = 0
@@ -138,8 +139,8 @@ function checkAnswer(game, answer){
 
     if(game.winningHand === game.players[answer-1].hand){
 
-        console.log(answerMessage[0]);
-        feedback.innerHTML = answerMessage[0]
+        console.log(winningMessage[0]);
+        feedback.innerHTML = winningMessage[Math.floor(Math.random() * winningMessage.length)]
         // level++;
         streak++;
         score.innerHTML = 'Score: '+ streak.toString()
@@ -169,10 +170,10 @@ function checkAnswer(game, answer){
             feedbackContainer.append(feedback)
 
             startGame(level);
-        }, 500);
+        }, 1000);
     }else{
-        console.log(answerMessage[1]);
-        feedback.innerHTML = answerMessage[1];
+        console.log(losingMessage[0]);
+        feedback.innerHTML = losingMessage[0];
         streak = 0;
         score.innerHTML = 'Score: 0'
         let feedback2 = document.createElement('h1')
