@@ -6,7 +6,7 @@ import * as UTIL from "./scripts/util" ;
 const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!! READY?!'
 // const startMes = 'Welcome to Poker Pro! Here you can learn how to play poker.';
 const winningMessage = ['Correct!', 'Nice!', 'Good Job!', 'Wow, correct again!', 'Correct, you are on a roll!', 'Keep it up!!']
-const losingMessage = ['Not quite.'];
+const losingMessage = ['Not quite. '];
 let level = 1;
 let lost = false;
 let streak = 0
@@ -16,6 +16,7 @@ const board = document.getElementById('board') //div holding game boards
 const dealerDiv = document.getElementById('dealer-cards'); //div that holds dealers cards
 const feedbackContainer = document.getElementById('feedback-container')
 const score = document.getElementById('score');
+const playerHandsContainer = document.getElementById('players-hands-container')
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -92,7 +93,10 @@ function startGame(level){
         questionH2.innerHTML = UTIL.questions[2];
     }
 
-    const div = document.getElementById("players-hands");
+    const div = document.createElement('div')
+    div.setAttribute('id',"players-hands");
+    playerHandsContainer.append(div)
+
     //for-loop for displaying hands of current game
     for(let i = 0; i < game.players.length; i++){
         const innerDiv = document.createElement('div')
@@ -140,7 +144,7 @@ function checkAnswer(game, answer){
     if(game.winningHand === game.players[answer-1].hand){
 
         console.log(winningMessage[0]);
-        feedback.innerHTML = winningMessage[Math.floor(Math.random() * winningMessage.length)]
+        feedback.innerHTML = winningMessage[Math.floor(Math.random() * winningMessage.length)] + ' ' + game.outcome
         // level++;
         streak++;
         score.innerHTML = 'Score: '+ streak.toString()
@@ -149,9 +153,6 @@ function checkAnswer(game, answer){
         setTimeout(() => {
             let div = document.getElementById("players-hands");
             div.remove();
-            div = document.createElement('div')
-            div.setAttribute('id', 'players-hands')
-            board.append(div)
     
             if(document.getElementById("dealerCardContainer")){
     
@@ -173,14 +174,15 @@ function checkAnswer(game, answer){
         }, 1000);
     }else{
         console.log(losingMessage[0]);
-        feedback.innerHTML = losingMessage[0];
-        streak = 0;
+        feedback.innerHTML = losingMessage[0] + game.outcome;
         score.innerHTML = 'Score: 0'
         let feedback2 = document.createElement('h1')
-        feedback.innerHTML = game.outcome;
         setTimeout(() => {
-            feedback.innerHTML = 'Try Again! Tap the info icon to see hand Ranks'
-        }, 1000)
+            //output previous score
+            
+            streak = 0;
+            //add button for start of new game and hid the content of the board/game
+        }, 2.5 * 1000)
         lost = true;
     }
 
