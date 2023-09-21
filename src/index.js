@@ -18,7 +18,8 @@ const feedbackContainer = document.getElementById('feedback-container')
 const score = document.getElementById('score');
 const playerHandsContainer = document.getElementById('players-hands-container')
 let loseScreen = document.getElementById('losing-screen');
-let loseMessage = document.getElementById('losing-message')
+let loseMessage = document.getElementById('losing-message');
+const soundButton = document.getElementById('sound-button');
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -228,6 +229,10 @@ infoClick.addEventListener('click', (e) => {
         scoringDiv.style.display = 'flex';
         board.style.display = 'none'
     }
+})
+soundButton.addEventListener('click', e => {
+    //add code to start/stop music
+    //and change music icon
 })
 
 function checkRetryGame(){
