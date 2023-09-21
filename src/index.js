@@ -26,11 +26,12 @@ audio.pause();
 let audioActive = false;
 const openingMessage = document.getElementById('opening')
 const noneOpeningMessage = document.getElementById('not-opening')
+
 const openingStart = document.getElementById('opening-start')
+const infoClick = document.getElementById("info-button")
 let time = 10;
 
 document.addEventListener("DOMContentLoaded", () => {
-
     noneOpeningMessage.style.display = 'none';
     scoringDiv.style.display = "none";  //blocks div from displaying contents
     loseScreen.style.display = 'none';
@@ -278,8 +279,9 @@ let infoClicker;
     
 //     })
 // }
-const infoClick = document.getElementById("info-button")
+// const infoClick = document.getElementById("info-button")
 infoClick.addEventListener('click', (e) => {
+    console.log(e)
 
     if(loseScreen.style.display === 'block'){
         infoClicker = 'lockScreen'
@@ -298,8 +300,8 @@ infoClick.addEventListener('click', (e) => {
         infoClicker = ''
         scoringDiv.style.display = 'none';
         board.style.display = 'block'
-    }else if(streak === 0){ // not sure why I need this
-        infoClicker = 'board'
+    }else 
+        {infoClicker = 'board'
         scoringDiv.style.display = 'flex';
         board.style.display = 'none'
     }
