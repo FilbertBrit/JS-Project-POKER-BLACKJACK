@@ -126,16 +126,16 @@ export default class multiChoice {
                 if(handPair && currentHandPair){ // if both, checking for highest card
                     if(hand[0].value === currentHand[0].value){
                         this.tie = true;
-                        this.outcome = `Tie! Between ${this.players.map(player => {return player.hand}).indexOf(hand) + 1} and ${this.players.map(player => {return player.hand}).indexOf(currentHand) + 1}.`
+                        this.outcome = `Tie! Between ${(this.players.map(player => {return player.hand}).indexOf(hand)) + 1} and ${(this.players.map(player => {return player.hand}).indexOf(currentHand)) + 1}.`
                         this.tiedHand = currentHand;
                     }else{
                         hand = (UTIL.values.indexOf(hand[0].value) > UTIL.values.indexOf(currentHand[0].value) ? hand : currentHand)
-                        this.outcome = `Hand ${this.players.map(player => {return player.hand}).indexOf(hand) + 1} has the highest value pair.`
+                        this.outcome = `Hand ${(this.players.map(player => {return player.hand}).indexOf(hand)) + 1} has the highest value pair.`
                         this.true = false;
                     }
                 }else{
                     hand = (handPair ? hand : currentHand)
-                    this.outcome = `Hand ${this.players.map(player => {return player.hand}).indexOf(hand) + 1} has a pair.`
+                    this.outcome = `Hand ${(this.players.map(player => {return player.hand}).indexOf(hand)) + 1} has a pair.`
                     this.tie = false;
                 }
 
@@ -143,13 +143,13 @@ export default class multiChoice {
                 let result = this.compareHandValues(hand, currentHand);
                 if (result === 'tie'){
                     this.tie = true;
-                    this.outcome = `There is a tie! Between hand ${this.players.map(player => {return player.hand}).indexOf(hand) + 1} and hand ${this.players.map(player => {return player.hand}).indexOf(currentHand) + 1}.`
+                    this.outcome = `There is a tie! Between hand ${(this.players.map(player => {return player.hand}).indexOf(hand)) + 1} and hand ${(this.players.map(player => {return player.hand}).indexOf(currentHand)) + 1}.`
                     this.tiedHand = currentHand;
                 }else if (result === currentHand){
                     hand = result;
                     this.tie = false;
+                    this.outcome = `Hand ${(this.players.map(player => {return player.hand}).indexOf(hand))+ 1} has the highest value card.`
                 }
-                this.outcome ||= `Hand ${this.players.map(player => {return player.hand}).indexOf(hand) + 1} has the highest value card.`
             }
         }
         this.winningHand = hand;

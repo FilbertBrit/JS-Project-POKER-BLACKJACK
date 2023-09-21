@@ -12,67 +12,78 @@
   </head>
 
   <body id="body">
-    <header>
 
-      <div class="header-container">
-
-        <div id="personal-links">
-          <a href="https://github.com/FilbertBrit/JS-Project-POKER-BLACKJACK.git" target="_blank"><img src="./images/github-2.png"></a>
-          <a href=""><img src="./images/linkedin-2.png"></a>
-        </div>
-        <div id="title">
-          <h1>Poker Pro</h1>
-        </div>
-
-        <div id="controls">
-          <img src="./images/info.png" id="info-button">
-          <img src="./images/sound-high.png" id="sound-button">
-          <audio id="audio" autoplay loop  controls src="poker-song.mp3"></audio>
-          <!-- <audio id="music" loop="loop" autoplay="autoplay">
-            <source src="./images/poker-song.mp3">
-          </audio> -->
-        </div>
-
+    <div id="opening">
+      <h1>Poker Pro</h1>
+      <div id="opening-container">
+          <div id="start-message">
+            <!-- <div id="start-button"></div> -->
+          </div>
+          <img src="./images/start-fire.png" id="opening-start">
       </div>
-      
-    </header>
-    
-    <div class="game">
-        
-        <div id="start-message">
-          <!-- <div id="start-button"></div> -->
-        </div>
-
-        <div id="scoring">
-          <h3>Tap on the info icon to get back to the game.</h3>
-          <img src="./images/scoring-sheet-poker.png" id="hand-ranks">
-        </div>
-
-        <div id="losing-screen">
-          <div id="losing-message"></div>
-          <img src="./images/start-fire.png" id="play-button">
-        </div>
-
-        <div id="board">
-
-            <div id="score-container">
-              <h2 id="score">Score: 0</h2>
-            </div>
-            <div class="questions">
-              <h2 id="questionH2"></h2>
-            </div>
-      
-            <div id="dealer-cards"></div>
-      
-            <div id="players-hands-container"></div>
-
-            <div id="feedback-container"></div>
-
-        </div>
-          
     </div>
 
+    <div id="not-opening">
 
+      <header>
+
+        <div class="header-container">
+  
+          <div id="personal-links">
+            <a href="https://github.com/FilbertBrit/JS-Project-POKER-BLACKJACK.git" target="_blank"><img src="./images/github-2.png"></a>
+            <a href=""><img src="./images/linkedin-2.png"></a>
+          </div>
+          <div id="title">
+            <h1>Poker Pro</h1>
+          </div>
+  
+          <div id="controls">
+            <img src="./images/info.png" id="info-button">
+            <img src="./images/sound-high.png" id="sound-button">
+            <audio id="audio" autoplay loop  controls src="poker-song.mp3"></audio>
+          </div>
+  
+        </div>
+        
+      </header>
+      
+      <div class="game">
+          
+          <!-- <div id="start-message"> -->
+            <!-- <div id="start-button"></div> -->
+          <!-- </div> -->
+  
+          <div id="scoring">
+            <h3>Tap on the info icon to get back to the game.</h3>
+            <img src="./images/scoring-sheet-poker.png" id="hand-ranks">
+          </div>
+  
+          <div id="losing-screen">
+            <div id="losing-message"></div>
+            <img src="./images/start-fire.png" id="play-button">
+          </div>
+  
+          <div id="board">
+  
+              <div id="score-container">
+                <h2 id="score">Score: 0</h2>
+              </div>
+              <div class="questions">
+                <h2 id="questionH2"></h2>
+              </div>
+        
+              <div id="dealer-cards"></div>
+        
+              <div id="players-hands-container"></div>
+  
+              <div id="feedback-container"></div>
+  
+          </div>
+            
+      </div>
+  
+    </div>
+    
   </body>
 
 </html>

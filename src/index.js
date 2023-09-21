@@ -24,9 +24,13 @@ const audio = document.getElementById('audio')
 audio.style.display = 'none';
 audio.pause();
 let audioActive = false;
+const openingMessage = document.getElementById('opening')
+const noneOpeningMessage = document.getElementById('not-opening')
+const openingStart = document.getElementById('opening-start')
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    noneOpeningMessage.style.display = 'none';
     scoringDiv.style.display = "none";  //blocks div from displaying contents
     loseScreen.style.display = 'none';
     startGame(level);
@@ -264,6 +268,11 @@ soundButton.addEventListener('click', e => {
         audioActive = false;
     }
 
+})
+
+openingStart.addEventListener('click', e => {
+    openingMessage.style.display = 'none';
+    noneOpeningMessage.style.display = 'block';
 })
 
 

@@ -239,6 +239,12 @@ h3 {
   padding: 2%;
 }
 
+#losing-screen {
+  padding: 4%;
+  display: flex;
+  justify-content: center;
+}
+
 #losing-score {
   display: flex;
   flex-direction: row;
@@ -248,4 +254,47 @@ h3 {
 #losing-message {
   font-size: 150%;
   padding: 1.5%;
+}
+
+#opening {
+  background-color: whitesmoke;
+  margin-top: 250px;
+  margin-bottom: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 2%;
+}
+#opening #opening-container {
+  background-color: whitesmoke;
+}
+#opening #start-message {
+  background-color: whitesmoke;
+}
+#opening h1 {
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  font-size: 300%;
+}
+#opening #opening-start {
+  background-color: whitesmoke;
+  margin-left: 100px;
+  margin-right: 100px;
+  animation-direction: normal;
+  animation: myfirst 20s infinite;
+  position: relative;
+}
+@keyframes myfirst {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  20% {
+    left: 500px;
+    top: 0px;
+  }
+  40% {
+    left: 0px;
+    top: 0px;
+  }
 }
