@@ -179,7 +179,7 @@ function checkAnswer(game, answer){
             feedbackContainer.append(feedback)
 
             startGame(level);
-        }, 1350);
+        }, 1850);
     }else{
         console.log(losingMessage[0]);
         feedback.innerHTML = losingMessage[0] + game.outcome;
