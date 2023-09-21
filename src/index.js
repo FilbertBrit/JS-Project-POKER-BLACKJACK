@@ -3,7 +3,7 @@ import multiChoice from "./scripts/multiple-choice-game.js";
 import * as UTIL from "./scripts/util" ;
 // import GameView from "./scripts/game-view.js";
 
-const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Good Luck!!! READY?!'
+const startMessage = 'Welcome to Poker Pro! Here you can learn how to play poker. There are three distinct levels but an endless amount of rounds within each level. The goal for each level is to select the strongest hand amoung the player hands. The first level will consist of only 3 different player hands, hands that have only 2 cards. The second level will include a dealers hand, a hand of 3-4 cards, cards that player hands can use to strengthen their hand. Lastly, the final level will include the complete hand of the dealer, 5 cards, cards that player hands can also use to strengthen their hand. Again the goal is select the STRONGEST hand. Check out the info icon next to the sound button to see a scoring sheet. Good Luck!!! READY?!'
 // const startMes = 'Welcome to Poker Pro! Here you can learn how to play poker.';
 const winningMessage = ['Correct!', 'Nice!', 'Good Job!', 'Wow, correct again!', 'Correct, you are on a roll!', 'Keep it up!!']
 const losingMessage = ['Not quite. '];
@@ -27,6 +27,7 @@ let audioActive = false;
 const openingMessage = document.getElementById('opening')
 const noneOpeningMessage = document.getElementById('not-opening')
 const openingStart = document.getElementById('opening-start')
+let time = 10;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -58,6 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // while(!lost){
     //     let result = startGame(++level);
     //     lost = true;
+    // }
+
+    // if(streak === 0){
+    //     const infoIconMessage = document.createElement('h3');
+
     // }
 
 })
@@ -138,9 +144,10 @@ function startGame(level){
         nestedDiv.appendChild(cardTwo);
 
     }
+    // checkInfoClick();
     userSelect();
 
-    return gameResult // return winning card, later [card, tie, game?, idx?]
+    // return gameResult // return winning card, later [card, tie, game?, idx?]
 
 }
 
@@ -199,9 +206,20 @@ function checkAnswer(game, answer){
             loseMessage.innerHTML = `Your score was ${streak}, care to beat it? `;
             streak = 0;
 
-            setTimeout(() => {
+            // setTimeout(() => {
+
+            //     noneOpeningMessage.style.display = 'none';
+            //     openingMessage.style.display = 'block'
+            //     loseScreen.style.display = 'none'
+            //     let div = document.getElementById("players-hands");
+            //     div.remove();
+            //     feedback.remove();
+            //     feedback = document.createElement('h1')
+            //     feedbackContainer.append(feedback)
+            //     startGame(level);
+            //     board.style.display = 'block'
                 
-            }, 1500)
+            // }, 5.5 * 1000)
 
             checkRetryGame();
         }, 2.5 * 1000)
@@ -231,6 +249,35 @@ function userSelect(){
 
 let infoClicker;
 //code that creates and shows the scoring img div
+// function checkInfoClick(){
+//     const infoClick = document.getElementById("info-button")
+//     infoClick.addEventListener('click', (e) => {
+    
+//         if(loseScreen.style.display === 'block'){
+//             infoClicker = 'lockScreen'
+//             scoringDiv.style.display = 'flex';
+//             loseScreen.style.display = 'none'
+    
+//         }else if(board.style.display === 'block'){
+//             infoClicker = 'board'
+//             scoringDiv.style.display = 'flex';
+//             board.style.display = 'none'
+//         }else if(infoClicker === 'lockScreen'){
+//             infoClicker = ''
+//             scoringDiv.style.display = 'none';
+//             loseScreen.style.display = 'block'
+//         }else if(infoClicker === 'board'){
+//             infoClicker = ''
+//             scoringDiv.style.display = 'none';
+//             board.style.display = 'block'
+//         }else if(streak === 0){ // not sure why I need this
+//             infoClicker = 'board'
+//             scoringDiv.style.display = 'flex';
+//             board.style.display = 'none'
+//         }
+    
+//     })
+// }
 const infoClick = document.getElementById("info-button")
 infoClick.addEventListener('click', (e) => {
 
